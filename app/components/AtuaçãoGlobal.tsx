@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "./Button";
 
 export default function AtuacaoGlobal() {
   return (
@@ -18,12 +19,9 @@ export default function AtuacaoGlobal() {
           </strong>
         </p>
 
-        <Link
-          href="/experiencia"
-          className="inline-block border border-brand-white/30 px-8 py-3 font-sans text-sm text-brand-white hover:bg-brand-white hover:text-brand-black transition-colors duration-300"
-        >
-          Ver Trajetória Completa e Resultados
-        </Link>
+        <Button href="/experiencia" variant="outline">
+          Ver Trajetória completa e Resultados
+        </Button>
       </div>
 
       {/* 2. Imagem com Gradiente Superior */}

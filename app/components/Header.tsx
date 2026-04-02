@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "./Button";
 
 export default function Header() {
   return (
@@ -37,13 +38,13 @@ export default function Header() {
             Experiência
           </Link>
 
-          {/* Botão Branco Fiel ao Design */}
-          <Link
+          <Button
+            className="!py-2.5"
+            variant="white"
             href="/conversa-estrategica"
-            className="font-sans text-sm bg-brand-white text-brand-black px-6 py-2.5 hover:bg-brand-gray hover:text-brand-white transition-all duration-300 font-medium"
           >
             Conversa estratégica
-          </Link>
+          </Button>
         </div>
 
         {/* Botão Menu Mobile (Hamburguer) */}

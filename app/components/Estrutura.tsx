@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Button from "./Button";
 
 export default function Estrutura() {
   const cards = [
@@ -73,12 +73,9 @@ export default function Estrutura() {
 
         {/* Botão Inferior Centralizado */}
         <div className="mt-16 flex justify-center">
-          <Link
-            href="/atuacao"
-            className="inline-block border border-brand-white/30 px-8 py-3 font-sans text-sm text-brand-white hover:bg-brand-white hover:text-brand-black transition-colors duration-300"
-          >
-            Saber mais sobre a metodologia
-          </Link>
+          <Button href="/atuacao" variant="outline">
+            Saiba mais sobre a metodologia
+          </Button>
         </div>
       </div>
     </section>

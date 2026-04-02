@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "./Button";
 
 export default function Cta() {
   return (
@@ -17,13 +18,9 @@ export default function Cta() {
           estrutura financeira.
         </p>
 
-        {/* Botão Preto Invertido */}
-        <Link
-          href="/conversa-estrategica"
-          className="inline-block bg-brand-black text-brand-white px-10 py-4 font-sans text-sm font-medium hover:bg-brand-gray transition-colors duration-300  "
-        >
+        <Button href="/conversa-estrategica" variant="solid">
           Agendar Conversa Estratégica
-        </Link>
+        </Button>
       </div>
     </section>
   );
