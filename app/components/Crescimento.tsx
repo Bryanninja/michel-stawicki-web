@@ -1,6 +1,9 @@
 export default function Crescimento() {
   return (
-    <section className="bg-brand-black w-full py-24 border-b border-brand-gray/10">
+    <section
+      id="growth"
+      className="bg-brand-black w-full py-24 border-b border-brand-gray/10"
+    >
       <div className="max-w-[1440px] mx-auto px-6">
         {/* Cabeçalho da Seção */}
         <div className="mb-16 max-w-3xl">
