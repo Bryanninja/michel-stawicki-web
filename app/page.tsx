@@ -2,7 +2,9 @@
 import Header from "../app/components/Header";
 import AtuacaoGlobal from "./components/AtuaçãoGlobal";
 import Crescimento from "./components/Crescimento";
+import Cta from "./components/Cta";
 import Estrutura from "./components/Estrutura";
+import Faq from "./components/Faq";
 import Hero from "./components/Hero";
 
 export default function Home() {
@@ -14,6 +16,8 @@ export default function Home() {
         <Crescimento />
         <Estrutura />
         <AtuacaoGlobal />
+        <Cta />
+        <Faq />
       </main>
     </>
   );
