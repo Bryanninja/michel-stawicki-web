@@ -35,7 +35,7 @@ export default function Faq() {
   ];
 
   return (
-    <section className="bg-brand-black w-full py-24 border-b border-brand-gray/10">
+    <section className="bg-surface w-full py-24 border-b border-brand-gray/10">
       <div className="max-w-[1440px] mx-auto px-6 max-w-4xl">
         <h2 className="font-sans font-medium text-3xl md:text-4xl text-brand-white mb-12 tracking-tight">
           Ficou com alguma dúvida?
