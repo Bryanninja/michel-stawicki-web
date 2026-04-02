@@ -17,7 +17,10 @@ export default function Home() {
         <Crescimento />
         <Estrutura />
         <AtuacaoGlobal />
-        <Cta />
+        <Cta
+          title="Toda intervenção começa com clareza."
+          description="A Conversa Estratégica é um encontro estruturado para compreender o momento da empresa e seus objetivos."
+        />
         <Faq />
         <Footer />
       </main>

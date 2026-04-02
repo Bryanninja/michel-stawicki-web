@@ -1,26 +1,52 @@
-import Link from "next/link";
 import Button from "./Button";
 
-export default function Cta() {
+interface CtaProps {
+  title: string;
+  description?: string; // Opcional, alguns CTAs podem não ter
+  showLogo?: boolean; // Se true, mostra o MS gigante no fundo
+}
+
+export default function Cta({
+  title,
+  description,
+  showLogo = false,
+}: CtaProps) {
   return (
-    <section className="bg-brand-white w-full py-24 flex flex-col items-center text-center px-6">
-      <div className="max-w-2xl mx-auto flex flex-col items-center">
-        {/* Título em Preto (Quebra visual para chamar atenção) */}
-        <h2 className="font-sans font-medium text-4xl md:text-5xl text-brand-black mb-6 tracking-tight leading-tight">
-          Toda intervenção <br className="hidden md:block" />
-          começa com clareza.
+    <section className="bg-brand-white py-32 relative overflow-hidden">
+      {/* Logo "MS" em outline: Só aparece se showLogo for true */}
+      {showLogo && (
+        <div className="absolute right-[-5%] bottom-[-10%] opacity-100 select-none pointer-events-none">
+          <img
+            src="/ms-outline.svg"
+            className="w-[300px] lg:w-[400px] xl:w-[600px]"
+            alt="MS logo background"
+          />
+        </div>
+      )}
+
+      <div
+        className={`max-w-[1440px] mx-auto px-6 relative z-10 flex flex-col gap-10 ${showLogo ? "text-left" : "items-center text-center"}`}
+      >
+        {/* Título: Usa o que você passar na página */}
+        <h2
+          className={`font-sans font-medium text-3xl md:text-4xl  text-brand-black max-w-4xl leading-tight text-pretty ${showLogo ? "text-left" : "text-center"} `}
+        >
+          {title}
         </h2>
 
-        {/* Subtítulo */}
-        <p className="font-sans text-brand-black/80 text-lg text-pretty max-w-2xl font-light leading-relaxed mb-10">
-          A Conversa Estratégica é um encontro estruturado para compreender o
-          momento da empresa, seus objetivos e os desafios que impactam sua
-          estrutura financeira.
-        </p>
+        {/* Descrição: Só aparece se você passar uma */}
+        {description && (
+          <p className="font-sans text-brand-black/70 text-lg max-w-2xl font-light leading-relaxed">
+            {description}
+          </p>
+        )}
 
-        <Button href="/conversa-estrategica" variant="solid">
-          Agendar Conversa Estratégica
-        </Button>
+        <div className="shrink-0">
+          {/* Usando o nosso componente de botão com a variante preta */}
+          <Button href="/conversa-estrategica" variant="solid">
+            Agendar Conversa Estratégica
+          </Button>
+        </div>
       </div>
     </section>
   );
