@@ -4,7 +4,7 @@ export default function Crescimento() {
       <div className="max-w-[1440px] mx-auto px-6">
         {/* Cabeçalho da Seção */}
         <div className="mb-16 max-w-3xl">
-          <h2 className="font-serif font-bold text-4xl md:text-5xl text-brand-white mb-6 tracking-tight">
+          <h2 className="font-sans font-medium text-4xl md:text-5xl text-brand-white mb-6 tracking-tight">
             Crescimento exige estrutura.
           </h2>
           <p className="font-sans text-lg text-brand-white/70 leading-relaxed font-light">
