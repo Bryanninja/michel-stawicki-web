@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Cta from "../components/Cta";
 import BentoGrid from "../components/BentoGrid";
+import Faq from "../components/Faq";
 
 export default function Experiencia() {
   return (
@@ -64,6 +65,7 @@ export default function Experiencia() {
         title="Resultados decorrentes de estrutura, método e disciplina. Hoje, aplica essa lógica a empresas que desejam fortalecer sua base financeira e sustentar crescimento com consistência."
         showLogo={true}
       />
+      <Faq />
       <Footer />
     </>
   );

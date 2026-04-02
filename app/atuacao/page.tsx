@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Cta from "../components/Cta";
 import Entregas from "../components/Entregas";
+import Faq from "../components/Faq";
 
 export default function Atuacao() {
   const metodo = [
@@ -92,6 +93,7 @@ export default function Atuacao() {
           showLogo={true}
         />
       </main>
+      <Faq />
       <Footer />
     </>
   );
