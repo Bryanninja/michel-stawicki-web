@@ -1,10 +1,12 @@
+import Container from "./Container";
+
 export default function Crescimento() {
   return (
     <section
       id="growth"
       className="bg-brand-black w-full py-24 border-b border-brand-gray/10"
     >
-      <div className="max-w-[1440px] mx-auto px-6">
+      <Container>
         {/* Cabeçalho da Seção */}
         <div className="mb-16 max-w-3xl">
           <h2 className="font-sans font-medium text-4xl md:text-5xl text-brand-white mb-6 tracking-tight">
@@ -52,7 +54,7 @@ export default function Crescimento() {
             alcançar o próximo nível.
           </p>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

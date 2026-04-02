@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Container from "./Container";
 
 interface CtaProps {
   title: string;
@@ -24,8 +25,8 @@ export default function Cta({
         </div>
       )}
 
-      <div
-        className={`max-w-[1440px] mx-auto px-6 relative z-10 flex flex-col gap-10 ${showLogo ? "text-left" : "items-center text-center"}`}
+      <Container
+        className={` relative z-10 flex flex-col gap-10 ${showLogo ? "text-left" : "items-center text-center"}`}
       >
         {/* Título: Usa o que você passar na página */}
         <h2
@@ -47,7 +48,7 @@ export default function Cta({
             Agendar Conversa Estratégica
           </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

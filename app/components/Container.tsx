@@ -12,9 +12,7 @@ export default function Container({
     <div
       className={`
         mx-auto w-full 
-        
-        px-6 md:px-12 lg:px-20 
-        /* Max-width compensado: 1440px + os 160px de padding do LG */
+        px-6 md:px-12 lg:px-20
         max-w-[1440px] 
         ${className}
       `}

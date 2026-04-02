@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Cta from "../components/Cta";
 import Entregas from "../components/Entregas";
 import Faq from "../components/Faq";
+import Container from "../components/Container";
 
 export default function Atuacao() {
   const metodo = [
@@ -37,7 +38,7 @@ export default function Atuacao() {
             />
             <div className="absolute inset-0 md:bg-gradient-to-r from-black/10 via-transparent to-black/10"></div>
           </div>
-          <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 h-full">
+          <Container className="relative z-10 w-full h-full">
             <div className="absolute top-32 left-6 md:top-40 md:left-12">
               <h1 className="font-sans font-medium text-3xl md:text-5xl text-brand-white tracking-tighter opacity-90">
                 A Estrutura
@@ -51,7 +52,7 @@ export default function Atuacao() {
                 </span>
               </p>
             </div>
-          </div>
+          </Container>
         </section>
 
         {/* INTRO */}
@@ -68,8 +69,8 @@ export default function Atuacao() {
         </section>
 
         {/* MÉTODO GRID */}
-        <section className="max-w-[1440px] mx-auto px-6 pb-32">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className=" pb-32">
+          <Container className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {metodo.map((item) => (
               <div
                 key={item.title}
@@ -83,7 +84,7 @@ export default function Atuacao() {
                 </p>
               </div>
             ))}
-          </div>
+          </Container>
         </section>
 
         <Entregas />

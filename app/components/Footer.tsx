@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Container from "./Container";
 
 export default function Footer() {
   return (
     <footer className="bg-brand-black border-t border-brand-gray/10 pt-20 pb-8 w-full">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <Container>
         {/* Top Section: Logo, Contato e Links */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
           {/* Coluna 1 e 2: Logo e E-mail (Ocupa metade do espaço no desktop) */}
@@ -105,7 +106,7 @@ export default function Footer() {
             Termos de Uso e Política de Privacidade
           </Link>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

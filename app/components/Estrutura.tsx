@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Container from "./Container";
 
 export default function Estrutura() {
   const cards = [
@@ -31,7 +32,7 @@ export default function Estrutura() {
 
   return (
     <section className="bg-surface w-full py-24 border-b border-brand-gray/10">
-      <div className="max-w-360 mx-auto px-6">
+      <Container>
         {/* Cabeçalho alinhado à esquerda como no design */}
         <div className="mb-12 max-w-2xl">
           <h2 className="font-sans font-medium text-4xl md:text-5xl leading-tight text-brand-white mb-4 tracking-tight">
@@ -77,7 +78,7 @@ export default function Estrutura() {
             Saiba mais sobre a metodologia
           </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

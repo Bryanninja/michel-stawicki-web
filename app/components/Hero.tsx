@@ -1,3 +1,5 @@
+import Container from "./Container";
+
 export default function Hero() {
   return (
     <section className="relative h-screen w-full flex flex-col justify-center overflow-hidden">
@@ -11,7 +13,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/30 md:bg-transparent"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 h-full flex flex-col justify-center">
+      <Container className="relative z-10 w-full  h-full flex flex-col justify-center">
         <div className="pt-24 md:pt-0"></div>
 
         <div className="max-w-2xl">
@@ -56,7 +58,7 @@ export default function Hero() {
             </div>
           </div>
         </a>
-      </div>
+      </Container>
     </section>
   );
 }

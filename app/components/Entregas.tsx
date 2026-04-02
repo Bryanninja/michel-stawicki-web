@@ -1,3 +1,5 @@
+import Container from "./Container";
+
 export default function Entregas() {
   const itens = [
     {
@@ -20,7 +22,7 @@ export default function Entregas() {
 
   return (
     <section className="bg-surface border-t border-brand-gray/10 py-24">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <Container>
         <div className="mb-16">
           <h2 className="font-sans font-medium text-3xl md:text-4xl text-brand-white mb-4">
             O Que a Intervenção Entrega?
@@ -64,7 +66,7 @@ export default function Entregas() {
             />
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
