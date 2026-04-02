@@ -49,7 +49,7 @@ export default function Estrutura() {
           {cards.map((card, index) => (
             <div
               key={index}
-              className={`group relative bg-surface-hover/70 border border-brand-gray/5 p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:bg-surface-hover ${card.span}`}
+              className={`group relative bg-surface-hover/70 border border-brand-gray/20 p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:bg-surface-hover ${card.span}`}
             >
               {/* Barra Branca Lateral (Aparece no Hover para dar o efeito do design) */}
               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

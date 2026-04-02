@@ -42,7 +42,7 @@ export default function AtuacaoGlobal() {
       <div className="w-full bg-surface border-t border-brand-gray/10 py-8 relative z-20">
         <div className="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
           {/* Card "30+" */}
-          <div className="bg-surface-hover border border-brand-gray/10 rounded-lg py-8 px-12 flex flex-col items-center justify-center min-w-[280px]">
+          <div className="bg-surface-hover border border-brand-gray/20 rounded-lg py-8 px-12 flex flex-col items-center justify-center min-w-[280px]">
             <span className="font-serif font-bold text-6xl md:text-7xl text-brand-white mb-1">
               30+
             </span>
