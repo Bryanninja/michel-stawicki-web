@@ -1,4 +1,5 @@
 import Container from "./Container";
+import FadeIn from "./FadeIn";
 
 export default function Hero() {
   return (
@@ -17,25 +18,29 @@ export default function Hero() {
         <div className="pt-24 md:pt-0"></div>
 
         <div className="max-w-2xl">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-brand-white text-brand-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">
-              $
+          <FadeIn>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-brand-white text-brand-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">
+                $
+              </div>
+              <span className="font-sans text-brand-white/90 text-sm tracking-wide">
+                Consultor Financeiro
+              </span>
             </div>
-            <span className="font-sans text-brand-white/90 text-sm tracking-wide">
-              Consultor Financeiro
-            </span>
-          </div>
 
-          <h1 className="font-sans font-medium text-4xl md:text-5xl leading-[1.1] text-brand-white mb-6 tracking-tight">
-            Michel Stawicki
-            <br />
-            Financial Structure
-          </h1>
+            <h1 className="font-sans font-medium text-4xl md:text-5xl leading-[1.1] text-brand-white mb-6 tracking-tight">
+              Michel Stawicki
+              <br />
+              Financial Structure
+            </h1>
+          </FadeIn>
 
-          <p className="font-sans text-lg text-brand-white/80 max-w-sm leading-relaxed font-light">
-            Estrutura financeira para sustentar crescimento com disciplina,
-            clareza e consistência
-          </p>
+          <FadeIn delay={0.4}>
+            <p className="font-sans text-lg text-brand-white/80 max-w-sm leading-relaxed font-light">
+              Estrutura financeira para sustentar crescimento com disciplina,
+              clareza e consistência
+            </p>
+          </FadeIn>
         </div>
 
         {/* Badge Bottom com Link e Animação */}

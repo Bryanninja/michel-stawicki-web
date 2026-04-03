@@ -4,6 +4,7 @@ import Cta from "../components/Cta";
 import BentoGrid from "../components/BentoGrid";
 import Faq from "../components/Faq";
 import Container from "../components/Container";
+import FadeIn from "../components/FadeIn";
 
 export default function Experiencia() {
   return (
@@ -14,19 +15,24 @@ export default function Experiencia() {
         <section className=" mb-6">
           <Container>
             <div className="max-w-4xl mx-auto text-center mb-16">
-              <h1 className="font-sans font-medium text-3xl md:text-5xl text-brand-white leading-tight tracking-tight">
-                Ao longo de mais de 30 anos, Michel Stawicki atuou em ambientes
-                onde decisões financeiras tinham impacto estrutural profundo.
-              </h1>
+              <FadeIn>
+                <h1 className="font-sans font-medium text-3xl md:text-5xl text-brand-white leading-tight tracking-tight">
+                  Ao longo de mais de 30 anos, Michel Stawicki atuou em
+                  ambientes onde decisões financeiras tinham impacto estrutural
+                  profundo.
+                </h1>
+              </FadeIn>
             </div>
 
-            <div className="w-full max-w-360 mx-auto aspect-[16/9]  overflow-hidden">
-              <img
-                src="/experiencia-hero.jpg"
-                alt="Michel Stawicki"
-                className="w-full h-full object-cover grayscale-[20%]"
-              />
-            </div>
+            <FadeIn delay={0.2}>
+              <div className="w-full max-w-360 mx-auto aspect-[16/9]  overflow-hidden">
+                <img
+                  src="/experiencia-hero.jpg"
+                  alt="Michel Stawicki"
+                  className="w-full h-full object-cover grayscale-[20%]"
+                />
+              </div>
+            </FadeIn>
           </Container>
         </section>
 
@@ -34,19 +40,23 @@ export default function Experiencia() {
         <section className="mb-32">
           <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-360 mx-auto">
-              <div className="aspect-auto overflow-hidden">
-                <img
-                  src="/experiencia-2.jpg"
-                  alt="Trajetória Michel"
-                  className="w-full h-full object-cover grayscale-[20%]"
-                />
-              </div>
+              <FadeIn>
+                <div className="aspect-auto overflow-hidden">
+                  <img
+                    src="/experiencia-2.jpg"
+                    alt="Trajetória Michel"
+                    className="w-full h-full object-cover grayscale-[20%]"
+                  />
+                </div>
+              </FadeIn>
               <div className="max-w-lg">
-                <p className="font-sans text-brand-white/70 text-lg md:text-2xl leading-relaxed font-light">
-                  Sua trajetória foi construída sob cenários de crescimento
-                  acelerado, restrição de liquidez, reestruturações operacionais
-                  e integração corporativa.
-                </p>
+                <FadeIn delay={0.2}>
+                  <p className="font-sans text-brand-white/70 text-lg md:text-2xl leading-relaxed font-light">
+                    Sua trajetória foi construída sob cenários de crescimento
+                    acelerado, restrição de liquidez, reestruturações
+                    operacionais e integração corporativa.
+                  </p>
+                </FadeIn>
               </div>
             </div>
           </Container>
@@ -55,14 +65,18 @@ export default function Experiencia() {
         {/* 3. Título das Operações */}
         <section className="mb-16 text-center">
           <Container>
-            <h2 className="font-sans font-medium text-3xl md:text-5xl text-brand-white mb-6">
-              Atuou em operações que alcançaram
-            </h2>
-            <p className="font-sans text-brand-white/50 text-lg max-w-2xl mx-auto">
-              USD 1,8 bilhões anuais e participou de processos de fusão
-              envolvendo quase USD 3 bilhões em faturamento combinado. Entre as
-              iniciativas conduzidas:
-            </p>
+            <FadeIn delay={0.2}>
+              <h2 className="font-sans font-medium text-3xl md:text-5xl text-brand-white mb-6">
+                Atuou em operações que alcançaram
+              </h2>
+            </FadeIn>
+            <FadeIn delay={0.4}>
+              <p className="font-sans text-brand-white/50 text-lg max-w-2xl mx-auto">
+                USD 1,8 bilhões anuais e participou de processos de fusão
+                envolvendo quase USD 3 bilhões em faturamento combinado. Entre
+                as iniciativas conduzidas:
+              </p>
+            </FadeIn>
           </Container>
         </section>
 

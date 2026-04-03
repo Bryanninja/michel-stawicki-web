@@ -1,50 +1,34 @@
-"use client"; // Essencial para o Framer rodar no Next App Router
+"use client";
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface FadeInProps {
   children: ReactNode;
-  delay?: number; // Opcional: para fazer animações em sequência
-  direction?: "up" | "down" | "left" | "right"; // Opcional: direção do deslize
+  delay?: number;
 }
 
-export default function FadeIn({
-  children,
-  delay = 0,
-  direction = "up",
-}: FadeInProps) {
-  // Configuração dos eixos de deslize
-  const directions = {
-    up: { y: 20 },
-    down: { y: -20 },
-    left: { x: 20 },
-    right: { x: -20 },
-  };
-
+export default function FadeIn({ children, delay = 0 }: FadeInProps) {
   return (
     <motion.div
-      // 1. Estado Inicial (Escondido)
+      // 1. Inicia totalmente invisível (Sem mexer em escala ou posição)
       initial={{
         opacity: 0,
-        ...directions[direction], // Desliza um pouquinho na direção escolhida
       }}
-      // 2. Estado Quando Aparece na Tela (In View)
+      // 2. Revela apenas a opacidade
       whileInView={{
         opacity: 1,
-        x: 0,
-        y: 0,
       }}
-      // 3. Configurações da Viewport (O segredo da elegância)
       viewport={{
-        once: true, // Importante: Anima só a PRIMEIRA vez que aparece. Evita o "efeito cassino"
-        amount: 0.2, // Começa a animar quando 20% do elemento já está na tela
+        once: true,
+        amount: 0.2,
       }}
-      // 4. Configuração da Transição (Suave)
       transition={{
-        duration: 0.7, // Duração de quase 1 segundo para ser bem suave
-        delay: delay, // Aplica o delay se houver
-        ease: [0.25, 1, 0.5, 1], // Uma curva de velocidade "Cubic Bezier" clássica de luxo
+        // Duração estendida para 0.8s: cria uma entrada nobre e elegante
+        duration: 0.8,
+        delay: delay,
+        // easeInOut: começa devagar, acelera no meio e termina devagar
+        ease: "easeInOut",
       }}
     >
       {children}

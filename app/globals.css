@@ -27,11 +27,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  /* Definição de transição suave padrão para qualquer mudança de estado (hover, focus) */
-  * {
-    @apply transition-all duration-300 ease-in-out border-brand-gray/20;
-  }
 }
 
 /* Customização do scrollbar para manter a elegância dark */

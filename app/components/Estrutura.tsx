@@ -1,5 +1,6 @@
 import Button from "./Button";
 import Container from "./Container";
+import FadeIn from "./FadeIn";
 
 export default function Estrutura() {
   const cards = [
@@ -35,48 +36,56 @@ export default function Estrutura() {
       <Container>
         {/* Cabeçalho alinhado à esquerda como no design */}
         <div className="mb-12 max-w-2xl">
-          <h2 className="font-sans font-medium text-4xl md:text-5xl leading-tight text-brand-white mb-4 tracking-tight">
-            Estrutura que Sustenta Decisões Financeiras
-          </h2>
-          <p className="font-sans text-brand-white/70 text-lg leading-relaxed font-light">
-            Quando a complexidade aumenta, pontos isolados deixam de ser
-            <br className="hidden md:block" />o problema. O que precisa evoluir
-            é a base
-          </p>
+          <FadeIn>
+            <h2 className="font-sans font-medium text-4xl md:text-5xl leading-tight text-brand-white mb-4 tracking-tight">
+              Estrutura que Sustenta Decisões Financeiras
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p className="font-sans text-brand-white/70 text-lg leading-relaxed font-light">
+              Quando a complexidade aumenta, pontos isolados deixam de ser
+              <br className="hidden md:block" />o problema. O que precisa
+              evoluir é a base
+            </p>
+          </FadeIn>
         </div>
 
-        {/* Grid Bento Assimétrico (6 colunas virtuais para fazer o 3 em cima e 2 embaixo) */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className={`group relative bg-surface-hover/70 border border-brand-gray/20 p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:bg-surface-hover ${card.span}`}
-            >
-              {/* Barra Branca Lateral (Aparece no Hover para dar o efeito do design) */}
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <FadeIn delay={0.4}>
+          {/* Grid Bento Assimétrico (6 colunas virtuais para fazer o 3 em cima e 2 embaixo) */}
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+            {cards.map((card, index) => (
+              <div
+                key={index}
+                className={`group relative bg-surface-hover/70 border border-brand-gray/20 p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:bg-surface-hover ${card.span}`}
+              >
+                {/* Barra Branca Lateral (Aparece no Hover para dar o efeito do design) */}
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-              {/* Ícone Grande */}
-              <div className="mb-8">
-                <img
-                  src={card.icon}
-                  alt="Ícone"
-                  className="w-12 h-12 md:w-14 md:h-14 object-contain opacity-90 group-hover:opacity-100 transition-opacity"
-                />
+                {/* Ícone Grande */}
+                <div className="mb-8">
+                  <img
+                    src={card.icon}
+                    alt="Ícone"
+                    className="w-12 h-12 md:w-14 md:h-14 object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                  />
+                </div>
+
+                {/* Texto com quebra de linha respeitada */}
+                <p className="font-sans text-brand-white/80 group-hover:text-brand-white transition-colors text-base md:text-lg leading-snug whitespace-pre-line font-light">
+                  {card.text}
+                </p>
               </div>
-
-              {/* Texto com quebra de linha respeitada */}
-              <p className="font-sans text-brand-white/80 group-hover:text-brand-white transition-colors text-base md:text-lg leading-snug whitespace-pre-line font-light">
-                {card.text}
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </FadeIn>
 
         {/* Botão Inferior Centralizado */}
         <div className="mt-16 flex justify-center">
-          <Button href="/atuacao" variant="outline">
-            Saiba mais sobre a metodologia
-          </Button>
+          <FadeIn delay={0.5}>
+            <Button href="/atuacao" variant="outline">
+              Saiba mais sobre a metodologia
+            </Button>
+          </FadeIn>
         </div>
       </Container>
     </section>

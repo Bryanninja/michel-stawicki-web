@@ -1,5 +1,6 @@
 import Button from "./Button";
 import Container from "./Container";
+import FadeIn from "./FadeIn";
 
 interface CtaProps {
   title: string;
@@ -28,26 +29,32 @@ export default function Cta({
       <Container
         className={` relative z-10 flex flex-col gap-10 ${showLogo ? "text-left" : "items-center text-center"}`}
       >
-        {/* Título: Usa o que você passar na página */}
-        <h2
-          className={`font-sans font-medium text-3xl md:text-4xl  text-brand-black max-w-4xl leading-tight text-pretty ${showLogo ? "text-left" : "text-center"} `}
-        >
-          {title}
-        </h2>
+        <FadeIn>
+          {/* Título: Usa o que você passar na página */}
+          <h2
+            className={`font-sans font-medium text-3xl md:text-4xl  text-brand-black max-w-4xl leading-tight text-pretty ${showLogo ? "text-left" : "text-center"} `}
+          >
+            {title}
+          </h2>
+        </FadeIn>
 
-        {/* Descrição: Só aparece se você passar uma */}
-        {description && (
-          <p className="font-sans text-brand-black/70 text-lg max-w-2xl font-light leading-relaxed">
-            {description}
-          </p>
-        )}
+        <FadeIn delay={0.2}>
+          {/* Descrição: Só aparece se você passar uma */}
+          {description && (
+            <p className="font-sans text-brand-black/70 text-lg max-w-2xl font-light leading-relaxed">
+              {description}
+            </p>
+          )}
+        </FadeIn>
 
-        <div className="shrink-0">
-          {/* Usando o nosso componente de botão com a variante preta */}
-          <Button href="/conversa-estrategica" variant="solid">
-            Agendar Conversa Estratégica
-          </Button>
-        </div>
+        <FadeIn delay={0.3}>
+          <div className="shrink-0">
+            {/* Usando o nosso componente de botão com a variante preta */}
+            <Button href="/conversa-estrategica" variant="solid">
+              Agendar Conversa Estratégica
+            </Button>
+          </div>
+        </FadeIn>
       </Container>
     </section>
   );
