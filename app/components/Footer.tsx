@@ -36,24 +36,25 @@ export default function Footer() {
                 Links Rápidos
               </h3>
               <ul className="flex flex-col gap-4">
-                {["Home", "Atuação", "Experiência", "Contato"].map((item) => (
-                  <li key={item}>
-                    <Link
-                      prefetch={false}
-                      href={
-                        item === "Home"
-                          ? "/"
-                          : `/${item
-                              .toLowerCase()
-                              .normalize("NFD")
-                              .replace(/[\u0300-\u036f]/g, "")}`
-                      }
-                      className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
+                {["Home", "Atuação", "Experiência", "Contato"].map((item) => {
+                  // Lógica de destino customizada
+                  let href = "/";
+                  if (item === "Atuação") href = "/atuacao";
+                  if (item === "Experiência") href = "/experiencia";
+                  if (item === "Contato") href = "/conversa-estrategica"; // <--- Aqui está o pulo do gato
+
+                  return (
+                    <li key={item}>
+                      <Link
+                        prefetch={false} // Mantendo para evitar os erros 403
+                        href={href}
+                        className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
