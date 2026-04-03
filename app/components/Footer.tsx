@@ -65,7 +65,7 @@ export default function Footer() {
               <ul className="flex flex-col gap-4">
                 <li>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/michel-stawicki/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
