@@ -29,6 +29,7 @@ export default function Button({
   return (
     <Link
       href={href}
+      prefetch={false}
       className={`${baseStyles} ${variants[variant]} ${className}`}
     >
       {children}

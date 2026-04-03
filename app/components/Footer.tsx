@@ -13,6 +13,7 @@ export default function Footer() {
             <div className="md:col-span-2 flex flex-col items-start">
               <Link
                 href="/"
+                prefetch={false}
                 className="mb-6 opacity-90 hover:opacity-100 transition-opacity"
               >
                 <img
@@ -38,6 +39,7 @@ export default function Footer() {
                 {["Home", "Atuação", "Experiência", "Contato"].map((item) => (
                   <li key={item}>
                     <Link
+                      prefetch={false}
                       href={
                         item === "Home"
                           ? "/"

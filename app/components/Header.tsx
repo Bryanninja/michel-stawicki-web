@@ -30,6 +30,7 @@ export default function Header() {
           {/* Logo Oficial */}
           <Link
             href="/"
+            prefetch={false}
             onClick={closeMenu}
             className="opacity-90 hover:opacity-100 transition-opacity"
           >
@@ -44,18 +45,21 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/"
+              prefetch={false}
               className="font-sans text-sm text-brand-white/80 hover:text-brand-white transition-colors"
             >
               Home
             </Link>
             <Link
               href="/atuacao"
+              prefetch={false}
               className="font-sans text-sm text-brand-white/80 hover:text-brand-white transition-colors"
             >
               Atuação
             </Link>
             <Link
               href="/experiencia"
+              prefetch={false}
               className="font-sans text-sm text-brand-white/80 hover:text-brand-white transition-colors"
             >
               Experiência
