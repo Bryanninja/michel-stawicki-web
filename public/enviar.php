@@ -1,33 +1,56 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'phpmailer/Exception.php';
+require 'phpmailer/PHPMailer.php';
+require 'phpmailer/SMTP.php';
+
 header('Content-Type: application/json');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST['Nome'] ?? '';
-    $sobrenome = $_POST['Sobrenome'] ?? '';
-    $email = $_POST['Email'] ?? '';
-    $telefone = $_POST['Telefone'] ?? '';
-    $empresa = $_POST['Empresa'] ?? '';
-    $mensagem = $_POST['Mensagem'] ?? '';
+    $mail = new PHPMailer(true);
 
-    $to = "relacionamento@msfinancialstructure.com";
-    $subject = "Novo Contato pelo Site - $nome $sobrenome";
-    
-    $body = "Você recebeu um novo pedido de Conversa Estratégica.\n\n";
-    $body .= "Nome: $nome $sobrenome\n";
-    $body .= "Email: $email\n";
-    $body .= "Telefone: $telefone\n";
-    $body .= "Empresa: $empresa\n\n";
-    $body .= "Mensagem:\n$mensagem\n";
+    try {
+        // Configuração de Acentuação (Resolve o Ã§Ã£o)
+        $mail->CharSet = 'UTF-8'; 
 
-    $headers = "From: no-reply@msfinancialstructure.com\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        // Configurações do Servidor
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.hostinger.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'no-reply@msfinancialstructure.com';
+        $mail->Password   = 'SENHA_NO_SERVIDOR_HOSTINGER'; // Senha segura aqui
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
 
-    if(mail($to, $subject, $body, $headers)) {
+        // Remetente e Destinatário
+        $mail->setFrom('no-reply@msfinancialstructure.com', 'Site MS Financial');
+        $mail->addAddress('relacionamento@msfinancialstructure.com');
+        $mail->addReplyTo($_POST['Email'], $_POST['Nome']);
+
+        // Conteúdo do E-mail
+        $mail->isHTML(true);
+        $mail->Subject = "Novo Contato: " . $_POST['Nome'] . " " . $_POST['Sobrenome'];
+        
+        // Template HTML mais limpo
+        $mail->Body    = "
+            <div style='font-family: sans-serif; line-height: 1.6; color: #333;'>
+                <h2 style='color: #000;'>Nova solicitação de conversa estratégica</h2>
+                <p><strong>Nome:</strong> {$_POST['Nome']} {$_POST['Sobrenome']}</p>
+                <p><strong>E-mail:</strong> {$_POST['Email']}</p>
+                <p><strong>Telefone:</strong> {$_POST['Telefone']}</p>
+                <p><strong>Empresa:</strong> {$_POST['Empresa']}</p>
+                <hr style='border: 0; border-top: 1px solid #eee;'>
+                <p><strong>Mensagem:</strong><br>" . nl2br($_POST['Mensagem']) . "</p>
+            </div>
+        ";
+
+        $mail->send();
         echo json_encode(["status" => "success"]);
-    } else {
+    } catch (Exception $e) {
         http_response_code(500);
-        echo json_encode(["status" => "error"]);
+        echo json_encode(["status" => "error", "message" => "Erro técnico: " . $mail->ErrorInfo]);
     }
 } else {
     http_response_code(405);
