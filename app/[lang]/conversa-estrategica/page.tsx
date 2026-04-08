@@ -1,23 +1,36 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Container from "../components/Container";
-import ContactForm from "../components/ContactForm";
-import Button from "../components/Button";
-import Faq from "../components/Faq";
-import FadeIn from "../components/FadeIn";
+import { getDictionary } from "../../getDictionary";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Container from "../../components/Container";
+import ContactForm from "../../components/ContactForm";
+import Button from "../../components/Button";
+import Faq from "../../components/Faq";
+import FadeIn from "../../components/FadeIn";
 
-export default function ConversaEstrategica() {
+export function generateStaticParams() {
+  return [{ lang: "pt" }, { lang: "en" }];
+}
+
+export default async function ConversaEstrategica({
+  params,
+}: {
+  params: Promise<{ lang: "pt" | "en" }>;
+}) {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const dict = await getDictionary(lang);
+
   const cards = [
-    { icon: "/icon-target.svg", title: "Modelo geração de resultado" },
-    { icon: "/icon-chart.svg", title: "Estrutura de capital" },
-    { icon: "/icon-sync.svg", title: "Ciclo financeiro" },
-    { icon: "/icon-pie.svg", title: "Grau de maturidade organizacional" },
-    { icon: "/icon-trend.svg", title: "Prioridades de crescimento" },
+    { icon: "/icon-target.svg", title: dict.conversaPage.cards[0] },
+    { icon: "/icon-chart.svg", title: dict.conversaPage.cards[1] },
+    { icon: "/icon-sync.svg", title: dict.conversaPage.cards[2] },
+    { icon: "/icon-pie.svg", title: dict.conversaPage.cards[3] },
+    { icon: "/icon-trend.svg", title: dict.conversaPage.cards[4] },
   ];
 
   return (
     <>
-      <Header />
+      <Header lang={lang} dict={dict} />
       <main className="bg-brand-black min-h-screen">
         {/* SECTION 1: HERO + FORM (DARK) */}
         <section
@@ -28,21 +41,19 @@ export default function ConversaEstrategica() {
             <div className="max-w-2xl">
               <FadeIn>
                 <h1 className="font-sans font-medium text-4xl md:text-6xl text-brand-white mb-8 leading-tight tracking-tight">
-                  Toda intervenção começa com clareza.
+                  {dict.conversaPage.hero_titulo}
                 </h1>
               </FadeIn>
               <FadeIn delay={0.2}>
                 <p className="font-sans text-brand-white/70 text-lg md:text-xl font-light leading-relaxed">
-                  Um encontro estruturado para compreender o momento da empresa,
-                  seus objetivos e os desafios que impactam sua estrutura
-                  financeira.
+                  {dict.conversaPage.hero_sub}
                 </p>
               </FadeIn>
             </div>
 
             <div className="flex justify-center lg:justify-end">
               <FadeIn delay={0.6}>
-                <ContactForm />
+                <ContactForm lang={lang} dict={dict} />
               </FadeIn>
             </div>
           </Container>
@@ -53,7 +64,7 @@ export default function ConversaEstrategica() {
           <Container>
             <FadeIn>
               <h2 className="font-sans font-medium text-3xl md:text-5xl text-brand-black mb-16 max-w-2xl leading-tight">
-                O foco é entendimento consistente da dinâmica do negócio
+                {dict.conversaPage.entendimento_titulo}
               </h2>
             </FadeIn>
 
@@ -82,14 +93,12 @@ export default function ConversaEstrategica() {
             <div className="max-w-3xl">
               <FadeIn delay={0.4}>
                 <p className="font-sans text-brand-black/70 text-lg leading-relaxed mb-8">
-                  A partir dessa análise, avaliamos alinhamento e potencial
-                  escopo de atuação. Se houver convergência, definimos próximos
-                  passos de forma objetiva.
+                  {dict.conversaPage.entendimento_sub}
                 </p>
               </FadeIn>
               <FadeIn delay={0.6}>
                 <Button href="#contactForm" variant="solid">
-                  Agendar Conversa Estratégica
+                  {dict.conversaPage.btn_agendar}
                 </Button>
               </FadeIn>
             </div>
@@ -101,14 +110,14 @@ export default function ConversaEstrategica() {
           <Container className="text-center">
             <FadeIn delay={0.6}>
               <p className="font-serif text-brand-white/80 text-xl md:text-2xl">
-                ”Estrutura começa com clareza.”
+                {dict.conversaPage.quote}
               </p>
             </FadeIn>
           </Container>
         </section>
       </main>
-      <Faq />
-      <Footer />
+      <Faq dict={dict} />
+      <Footer lang={lang} dict={dict} />
     </>
   );
 }

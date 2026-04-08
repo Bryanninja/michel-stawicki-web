@@ -4,19 +4,21 @@ import FadeIn from "./FadeIn";
 import { ReactNode } from "react";
 
 interface CtaProps {
-  title: ReactNode; // Mudamos para ReactNode para você poder usar <b> em partes do texto
+  title: ReactNode;
   description?: string;
-  variant?: "centered" | "left"; // Controla o layout
+  variant?: "centered" | "left";
   showLogo?: boolean;
+  dict: any;
+  lang: string;
 }
-
-// ... (mantenha os imports)
 
 export default function Cta({
   title,
   description,
   variant = "centered",
   showLogo = false,
+  dict,
+  lang,
 }: CtaProps) {
   const isLeft = variant === "left";
 
@@ -37,7 +39,6 @@ export default function Cta({
           className={`flex flex-col gap-8 ${isLeft ? "items-start text-left" : "items-center text-center"}`}
         >
           <FadeIn>
-            {/* Reduzi o tamanho: de 5xl para 4xl no desktop e de 3xl para 2xl no mobile */}
             <h2
               className={`font-sans text-2xl md:text-4xl text-brand-black leading-tight tracking-tight text-balance ${isLeft ? "max-w-3xl" : "max-w-2xl font-medium"}`}
             >
@@ -56,8 +57,8 @@ export default function Cta({
           )}
 
           <FadeIn delay={0.3}>
-            <Button href="/conversa-estrategica" variant="solid">
-              Agendar Conversa Estratégica
+            <Button href={`/${lang}/conversa-estrategica`} variant="solid">
+              {dict.cta.botao}
             </Button>
           </FadeIn>
         </div>

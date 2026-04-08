@@ -2,31 +2,31 @@ import Button from "./Button";
 import Container from "./Container";
 import FadeIn from "./FadeIn";
 
-export default function Estrutura() {
+export default function Estrutura({ dict, lang }: { dict: any; lang: string }) {
   const cards = [
     {
       icon: "/icon-1.svg",
-      text: "Reorganização da lógica\nde rentabilidade",
-      span: "md:col-span-2", // Ocupa 2 colunas de 6 (1/3 da tela)
+      text: dict.estrutura.cards[0],
+      span: "md:col-span-2",
     },
     {
       icon: "/icon-2.svg",
-      text: "Redefinição dos\ninstrumentos de decisão",
+      text: dict.estrutura.cards[1],
       span: "md:col-span-2",
     },
     {
       icon: "/icon-3.svg",
-      text: "Reequilíbrio estrutural do\nciclo financeiro",
+      text: dict.estrutura.cards[2],
       span: "md:col-span-2",
     },
     {
       icon: "/icon-4.svg",
-      text: "Critérios claros na\nalocação de capital",
-      span: "md:col-span-3", // Ocupa 3 colunas de 6 (Metade da tela)
+      text: dict.estrutura.cards[3],
+      span: "md:col-span-3",
     },
     {
       icon: "/icon-5.svg",
-      text: "Alinhamento entre estrutura financeira e\nambição de crescimento",
+      text: dict.estrutura.cards[4],
       span: "md:col-span-3",
     },
   ];
@@ -34,34 +34,29 @@ export default function Estrutura() {
   return (
     <section className="bg-surface w-full py-24 border-b border-brand-gray/10">
       <Container>
-        {/* Cabeçalho alinhado à esquerda como no design */}
         <div className="mb-12 max-w-2xl">
           <FadeIn>
             <h2 className="font-sans font-medium text-4xl md:text-5xl leading-tight text-brand-white mb-4 tracking-tight">
-              Estrutura que Sustenta Decisões Financeiras
+              {dict.estrutura.titulo}
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="font-sans text-brand-white/70 text-lg leading-relaxed font-light">
-              Quando a complexidade aumenta, pontos isolados deixam de ser
-              <br className="hidden md:block" />o problema. O que precisa
-              evoluir é a base
+              {dict.estrutura.subtitulo1}
+              <br className="hidden md:block" /> {dict.estrutura.subtitulo2}
             </p>
           </FadeIn>
         </div>
 
         <FadeIn delay={0.4}>
-          {/* Grid Bento Assimétrico (6 colunas virtuais para fazer o 3 em cima e 2 embaixo) */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
             {cards.map((card, index) => (
               <div
                 key={index}
                 className={`group relative bg-surface-hover/70 border border-brand-gray/20 p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:bg-surface-hover ${card.span}`}
               >
-                {/* Barra Branca Lateral (Aparece no Hover para dar o efeito do design) */}
                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                {/* Ícone Grande */}
                 <div className="mb-8">
                   <img
                     src={card.icon}
@@ -70,7 +65,6 @@ export default function Estrutura() {
                   />
                 </div>
 
-                {/* Texto com quebra de linha respeitada */}
                 <p className="font-sans text-brand-white/80 group-hover:text-brand-white transition-colors text-base md:text-lg leading-snug whitespace-pre-line font-light">
                   {card.text}
                 </p>
@@ -79,11 +73,10 @@ export default function Estrutura() {
           </div>
         </FadeIn>
 
-        {/* Botão Inferior Centralizado */}
         <div className="mt-16 flex justify-center">
           <FadeIn delay={0.5}>
-            <Button href="/atuacao" variant="outline">
-              Saiba mais sobre a metodologia
+            <Button href={`/${lang}/atuacao`} variant="outline">
+              {dict.estrutura.botao}
             </Button>
           </FadeIn>
         </div>

@@ -2,17 +2,15 @@ import Link from "next/link";
 import Container from "./Container";
 import FadeIn from "./FadeIn";
 
-export default function Footer() {
+export default function Footer({ dict, lang }: { dict: any; lang: string }) {
   return (
     <footer className="bg-brand-black border-t border-brand-gray/10 pt-20 pb-8 w-full">
       <Container>
         <FadeIn>
-          {/* Top Section: Logo, Contato e Links */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
-            {/* Coluna 1 e 2: Logo e E-mail (Ocupa metade do espaço no desktop) */}
             <div className="md:col-span-2 flex flex-col items-start">
               <Link
-                href="/"
+                href={`/${lang}`}
                 prefetch={false}
                 className="mb-6 opacity-90 hover:opacity-100 transition-opacity"
               >
@@ -30,38 +28,48 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* Coluna 3: Links Rápidos */}
             <div>
               <h3 className="font-sans font-medium text-lg text-brand-white mb-6">
-                Links Rápidos
+                {dict.footer.linksRapidos}
               </h3>
               <ul className="flex flex-col gap-4">
-                {["Home", "Atuação", "Experiência", "Contato"].map((item) => {
-                  // Lógica de destino customizada
-                  let href = "/";
-                  if (item === "Atuação") href = "/atuacao";
-                  if (item === "Experiência") href = "/experiencia";
-                  if (item === "Contato") href = "/conversa-estrategica"; // <--- Aqui está o pulo do gato
+                {["Home", "Atuação", "Experiência", "Contato"].map(
+                  (item, i) => {
+                    let href = `/${lang}`;
+                    if (item === "Atuação") href = `/${lang}/atuacao`;
+                    if (item === "Experiência") href = `/${lang}/experiencia`;
+                    if (item === "Contato")
+                      href = `/${lang}/conversa-estrategica`;
 
-                  return (
-                    <li key={item}>
-                      <Link
-                        prefetch={false} // Mantendo para evitar os erros 403
-                        href={href}
-                        className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
-                      >
-                        {item}
-                      </Link>
-                    </li>
-                  );
-                })}
+                    // Traduz o label baseado no dict do header (já que as palavras são as mesmas)
+                    const label =
+                      i === 0
+                        ? dict.header.home
+                        : i === 1
+                          ? dict.header.atuacao
+                          : i === 2
+                            ? dict.header.experiencia
+                            : dict.header.conversa;
+
+                    return (
+                      <li key={item}>
+                        <Link
+                          prefetch={false}
+                          href={href}
+                          className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    );
+                  },
+                )}
               </ul>
             </div>
 
-            {/* Coluna 4: Nossas Redes */}
             <div>
               <h3 className="font-sans font-medium text-lg text-brand-white mb-6">
-                Nossas Redes
+                {dict.footer.redes}
               </h3>
               <ul className="flex flex-col gap-4">
                 <li>
@@ -74,7 +82,6 @@ export default function Footer() {
                     LinkedIn
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="mailto:relacionamento@msfinancialstructure.com"
@@ -83,7 +90,6 @@ export default function Footer() {
                     E-mail
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="https://www.instagram.com/michel.financeiramente/"
@@ -98,17 +104,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Bottom Section: Direitos Autorais e Políticas */}
-          <div className="border-t  border-brand-gray/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+          <div className="border-t border-brand-gray/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <p className="font-sans text-brand-white/50 text-xs font-light tracking-wide">
-              Copyright © 2026 Michel Stawicki. Todos os direitos reservados.
+              {dict.footer.direitos}
             </p>
-
             <Link
-              href="/termos"
+              href={`/${lang}/termos`}
               className="font-sans text-brand-white/50 hover:text-brand-white text-xs transition-colors tracking-wide"
             >
-              Termos de Uso e Política de Privacidade
+              {dict.footer.termos}
             </Link>
           </div>
         </FadeIn>

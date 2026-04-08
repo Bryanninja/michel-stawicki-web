@@ -1,15 +1,28 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Cta from "../components/Cta";
-import BentoGrid from "../components/BentoGrid";
-import Faq from "../components/Faq";
-import Container from "../components/Container";
-import FadeIn from "../components/FadeIn";
+import { getDictionary } from "../../getDictionary";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Cta from "../../components/Cta";
+import BentoGrid from "../../components/BentoGrid";
+import Faq from "../../components/Faq";
+import Container from "../../components/Container";
+import FadeIn from "../../components/FadeIn";
 
-export default function Experiencia() {
+export function generateStaticParams() {
+  return [{ lang: "pt" }, { lang: "en" }];
+}
+
+export default async function Experiencia({
+  params,
+}: {
+  params: Promise<{ lang: "pt" | "en" }>;
+}) {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const dict = await getDictionary(lang);
+
   return (
     <>
-      <Header />
+      <Header lang={lang} dict={dict} />
       <main className="bg-brand-black min-h-screen pt-32 pb-20">
         {/* 1. Hero: Texto de Impacto + Foto 1 */}
         <section className=" mb-6">
@@ -17,9 +30,7 @@ export default function Experiencia() {
             <div className="max-w-4xl mx-auto text-center mb-16">
               <FadeIn>
                 <h1 className="font-sans font-medium text-3xl md:text-5xl text-brand-white leading-tight tracking-tight">
-                  Ao longo de mais de 30 anos, Michel Stawicki atuou em
-                  ambientes onde decisões financeiras tinham impacto estrutural
-                  profundo.
+                  {dict.experienciaPage.hero_titulo}
                 </h1>
               </FadeIn>
             </div>
@@ -52,9 +63,7 @@ export default function Experiencia() {
               <div className="max-w-lg">
                 <FadeIn delay={0.2}>
                   <p className="font-sans text-brand-white/70 text-lg md:text-2xl leading-relaxed font-light">
-                    Sua trajetória foi construída sob cenários de crescimento
-                    acelerado, restrição de liquidez, reestruturações
-                    operacionais e integração corporativa.
+                    {dict.experienciaPage.trajetoria_texto}
                   </p>
                 </FadeIn>
               </div>
@@ -67,35 +76,34 @@ export default function Experiencia() {
           <Container>
             <FadeIn delay={0.2}>
               <h2 className="font-sans font-medium text-3xl md:text-5xl text-brand-white mb-6">
-                Atuou em operações que alcançaram
+                {dict.experienciaPage.operacoes_titulo}
               </h2>
             </FadeIn>
             <FadeIn delay={0.4}>
               <p className="font-sans text-brand-white/50 text-lg max-w-2xl mx-auto">
-                USD 1,8 bilhões anuais e participou de processos de fusão
-                envolvendo quase USD 3 bilhões em faturamento combinado. Entre
-                as iniciativas conduzidas:
+                {dict.experienciaPage.operacoes_texto}
               </p>
             </FadeIn>
           </Container>
         </section>
 
-        <BentoGrid />
+        <BentoGrid dict={dict} />
       </main>
       <Cta
+        lang={lang}
+        dict={dict}
         variant="left"
         showLogo
         title={
           <>
-            Resultados decorrentes de estrutura, método e disciplina. Hoje,
-            aplica essa lógica a empresas que{" "}
-            <b>desejam fortalecer sua base financeira</b> e sustentar
-            crescimento com consistência.
+            {dict.experienciaPage.cta_p1}
+            <b>{dict.experienciaPage.cta_bold}</b>
+            {dict.experienciaPage.cta_p2}
           </>
         }
       />
-      <Faq />
-      <Footer />
+      <Faq dict={dict} />
+      <Footer lang={lang} dict={dict} />
     </>
   );
 }

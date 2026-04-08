@@ -3,7 +3,7 @@
 import Container from "./Container";
 import FadeIn from "./FadeIn";
 
-export default function Crescimento() {
+export default function Crescimento({ dict }: { dict: any }) {
   return (
     <section
       id="growth"
@@ -14,21 +14,18 @@ export default function Crescimento() {
         <div className="mb-16 max-w-3xl">
           <FadeIn>
             <h2 className="font-sans font-medium text-4xl md:text-5xl text-brand-white mb-6 tracking-tight">
-              Crescimento exige estrutura.
+              {dict.crescimento.titulo}
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="font-sans text-lg text-brand-white/70 leading-relaxed font-light">
-              Gestão financeira madura organiza prioridades, disciplina recursos
-              e sustenta decisões capazes de preservar valor ao longo do tempo.
+              {dict.crescimento.subtitulo}
             </p>
           </FadeIn>
         </div>
 
         <FadeIn delay={0.4}>
-          {/* O PULO DO GATO: grid-cols-3 e h-[450px] para alinhar as alturas */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 items-stretch">
-            {/* Imagem 1 (Vertical/Estreita) - Ocupa 1 coluna */}
             <div className="relative h-[400px] md:h-[500px] overflow-hidden group bg-brand-gray/10">
               <img
                 src="/crescimento-1.jpg"
@@ -38,7 +35,6 @@ export default function Crescimento() {
               <div className="absolute inset-0 bg-brand-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
             </div>
 
-            {/* Imagem 2 (Horizontal/Larga) - Ocupa 2 colunas */}
             <div className="md:col-span-2 relative h-[400px] md:h-[500px] overflow-hidden group bg-brand-gray/10">
               <img
                 src="/crescimento-2.jpg"
@@ -57,9 +53,7 @@ export default function Crescimento() {
               <strong className="text-brand-white font-medium">
                 Michel Stawicki
               </strong>{" "}
-              conduz intervenções estruturadas em gestão financeira para
-              empresas que desejam fortalecer a base que sustenta seu
-              crescimento.
+              {dict.crescimento.rodape1}
             </p>
           </FadeIn>
         </div>

@@ -1,0 +1,236 @@
+{
+  "header": {
+    "home": "Home",
+    "atuacao": "Atuação",
+    "experiencia": "Experiência",
+    "conversa": "Conversa estratégica"
+  },
+  "hero": {
+    "kicker": "Michel Stawicki - Financial Structure",
+    "title": "Estrutura financeira para sustentar crescimento com disciplina, clareza e consistência.",
+    "scroll": "Role"
+  },
+
+  "quote": {
+    "line1": "\"Empresas crescem. À medida que a escala",
+    "line2": "aumenta, a complexidade se intensifica\".",
+    "slogan": "\"Estrutura precede crescimento\""
+  },
+
+  "crescimento": {
+    "titulo": "Crescimento exige estrutura.",
+    "subtitulo": "Gestão financeira madura organiza prioridades, disciplina recursos e sustenta decisões capazes de preservar valor ao longo do tempo.",
+    "rodape1": "conduz intervenções estruturadas em gestão financeira para empresas que desejam fortalecer a base que sustenta seu crescimento."
+  },
+  "estrutura": {
+    "titulo": "Estrutura que Sustenta Decisões Financeiras",
+    "subtitulo1": "Quando a complexidade aumenta, pontos isolados deixam de ser",
+    "subtitulo2": "o problema. O que precisa evoluir é a base",
+    "cards": [
+      "Reorganização da lógica\nde rentabilidade",
+      "Redefinição dos\ninstrumentos de decisão",
+      "Reequilíbrio estrutural do\nciclo financeiro",
+      "Critérios claros na\nalocação de capital",
+      "Alinhamento entre estrutura financeira e\nambição de crescimento"
+    ],
+    "botao": "Saiba mais sobre a metodologia"
+  },
+  "intervention": {
+    "texto": "A intervenção é orientada pelo momento estrutural da empresa, não por um escopo pré-definido. O objetivo é consolidar uma base capaz de sustentar o próximo ciclo com consistência."
+  },
+  "atuacaoGlobal": {
+    "titulo": "Atuação Global",
+    "sub1": "Mais de 30 anos de atuação",
+    "sub2": "em finanças em ambientes industriais, corporativos e de projetos no",
+    "sub3": "Brasil, Argentina e África.",
+    "card1": "Trajetória associada à construção deliberada de estruturas financeiras robustas. Hoje essa experiência é aplicada a",
+    "card2": "empresas que desejam fortalecer sua estrutura financeira",
+    "card3": "e elevar o padrão de suas decisões estratégicas",
+    "statAnos": "Anos de Experiência",
+    "botao": "Ver Trajetória Completa e Resultados"
+  },
+  "cta": {
+    "botao": "Agendar Conversa Estratégica"
+  },
+  "homeCta": {
+    "titulo1": "Toda intervenção",
+    "titulo2": "começa com clareza.",
+    "descricao": "A Conversa Estratégica é um encontro estruturado para compreender a dinâmica do negócio e os desafios que impactam sua estrutura financeira."
+  },
+  "faq": {
+    "titulo": "Esclarecendo a Intervenção.",
+    "perguntas": [
+      {
+        "q": "A intervenção substitui a minha equipe financeira atual?",
+        "a": "Não. A intervenção não visa substituir, mas capacitar e reestruturar. Atuamos em conjunto com a sua liderança financeira atual, fornecendo a eles novos critérios, processos e instrumentos decisórios para que consigam lidar com a nova complexidade da operação."
+      },
+      {
+        "q": "Qual é a duração média de um projeto de intervenção?",
+        "a": "A duração é estritamente orientada pelo momento estrutural da empresa. Diferente de consultorias tradicionais com pacotes de horas fixos, nosso foco é a consolidação definitiva da base financeira. O cronograma exato e os marcos de entrega são desenhados apenas após a Conversa Estratégica e o diagnóstico inicial."
+      },
+      {
+        "q": "A metodologia se aplica ao meu setor específico de atuação?",
+        "a": "Sim. A lógica de geração de caixa, estrutura de capital e reequilíbrio de ciclo financeiro são universais. A vivência em ambientes industriais, corporativos e de projetos permite adaptar os princípios da arquitetura financeira às particularidades e desafios regulatórios de qualquer mercado."
+      },
+      {
+        "q": "O trabalho envolve a execução ou apenas a entrega de um plano?",
+        "a": "A atuação vai além do diagnóstico. O método inclui a implementação assistida: construímos a estrutura lado a lado com a sua gestão, organizamos as rotinas e validamos as entregas na prática. O objetivo final é a transferência real de padrão operacional, e não a entrega de um relatório teórico."
+      }
+    ]
+  },
+  "footer": {
+    "linksRapidos": "Links Rápidos",
+    "redes": "Nossas Redes",
+    "direitos": "Copyright © 2026 Michel Stawicki. Todos os direitos reservados.",
+    "termos": "Termos de Uso e Política de Privacidade"
+  },
+  "termosPage": {
+    "titulo1": "Termos de Uso e",
+    "titulo2": "Política de Privacidade",
+    "atualizacao": "Última atualização:",
+    "mes": "02 de Abril de 2026",
+    "secoes": {
+      "t1": "1. Termos de Uso",
+      "s1_1": "1.1 Aceitação dos Termos",
+      "p1_1": "Ao acessar e utilizar o site Michel Stawicki Financial Structure, você concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site.",
+      "s1_2": "1.2 Uso de Licença",
+      "p1_2": "É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) neste site, apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título, e sob esta licença você não pode:",
+      "l1_2_1": "Modificar ou copiar os materiais;",
+      "l1_2_2": "Usar os materiais para qualquer finalidade comercial ou para exibição pública;",
+      "l1_2_3": "Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site;",
+      "l1_2_4": "Remover quaisquer direitos autorais ou outras notações de propriedade dos materiais.",
+      "s1_3": "1.3 Limitações",
+      "p1_3": "Em nenhum caso a Michel Stawicki Financial Structure ou seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro, ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais neste site.",
+      "t2": "2. Política de Privacidade",
+      "s2_1": "2.1 Coleta de Dados",
+      "p2_1": "A sua privacidade é importante para nós. É política da Michel Stawicki Financial Structure respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site. Solicitamos informações pessoais, como nome, e-mail e telefone, apenas quando realmente precisamos delas para lhe fornecer um serviço (como no agendamento da Conversa Estratégica).",
+      "s2_2": "2.2 Uso das Informações",
+      "p2_2": "As informações coletadas são utilizadas exclusivamente para:",
+      "l2_2_1": "Entrar em contato para agendamento de reuniões e consultorias;",
+      "l2_2_2": "Entender as necessidades da sua empresa para melhor adequação dos nossos serviços;",
+      "l2_2_3": "Envio de comunicações estritamente relacionadas ao escopo de atuação financeira.",
+      "s2_3": "2.3 Compartilhamento de Dados",
+      "p2_3": "Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei. Retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado.",
+      "s2_4": "2.4 Seus Direitos",
+      "p2_4": "Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados. O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais.",
+      "contato_t": "Dúvidas sobre nossos Termos?",
+      "contato_p": "Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contato conosco através do e-mail:"
+    }
+  },
+  "atuacaoPage": {
+    "hero": {
+      "kicker1": "Michel Stawicki –",
+      "kicker2": "Financial Structure."
+    },
+    "intro": {
+      "titulo1": "Intervenções em estrutura",
+      "titulo2": "financeira exigem método.",
+      "descricao": "A atuação é conduzida de forma estruturada, com foco em diagnóstico claro, definição objetiva de escopo e fortalecimento da base organizacional"
+    },
+    "metodo": [
+      {
+        "t": "Análise Estruturada",
+        "d": "Compreensão aprofundada do modelo de geração de resultado, estrutura de capital, ciclo financeiro, governança decisória e maturidade da equipe."
+      },
+      {
+        "t": "Definição de Escopo",
+        "d": "Delimitação clara do foco da intervenção, priorizando impacto estrutural e coerência com o momento da empresa."
+      },
+      {
+        "t": "Construção Estrutural",
+        "d": "Implementação assistida, organização de rotinas, definição de critérios e transferência de padrão."
+      },
+      {
+        "t": "Consolidação",
+        "d": "Validação das entregas e alinhamento do novo padrão operacional."
+      }
+    ],
+    "cta": {
+      "tituloNormal": "Estrutura financeira sólida permite ",
+      "tituloBold": "crescimento com previsibilidade, disciplina e consistência."
+    }
+  },
+  "entregas": {
+    "titulo": "O Que a Intervenção Entrega?",
+    "subtitulo": "Ao final do processo, a empresa passa a operar com:",
+    "itens": [
+      {
+        "t": "Solução estruturada para o momento atual",
+        "d": "Intervenção alinhada à fase específica do negócio."
+      },
+      {
+        "t": "Evolução estrutural da área financeira",
+        "d": "Processos e critérios organizados para absorver maior complexidade."
+      },
+      {
+        "t": "Clareza decisória",
+        "d": "Instrumentos que permitem decisões com previsibilidade."
+      },
+      {
+        "t": "Organização financeira disciplinada",
+        "d": "Base estruturada de capital, governança e indicadores."
+      }
+    ]
+  },
+
+  "experienciaPage": {
+    "hero_titulo": "Ao longo de mais de 30 anos, Michel Stawicki atuou em ambientes onde decisões financeiras tinham impacto estrutural profundo.",
+    "trajetoria_texto": "Sua trajetória foi construída sob cenários de crescimento acelerado, restrição de liquidez, reestruturações operacionais e integração corporativa.",
+    "operacoes_titulo": "Atuou em operações que alcançaram",
+    "operacoes_texto": "USD 1,8 bilhões anuais e participou de processos de fusão envolvendo quase USD 3 bilhões em faturamento combinado. Entre as iniciativas conduzidas:",
+    "cta_p1": "Resultados decorrentes de estrutura, método e disciplina. Hoje, aplica essa lógica a empresas que ",
+    "cta_bold": "desejam fortalecer sua base financeira",
+    "cta_p2": " e sustentar crescimento com consistência.",
+    "bento": {
+      "c1_span": "Fusões de quase",
+      "c1_h3": "USD 3 bilhões.",
+      "c2_titulo": "Reequilíbrio do Ciclo Financeiro",
+      "c2_prazo": "no prazo",
+      "c2_rec": "de recebimento.",
+      "c2_pag": "de pagamento.",
+      "c3_p1": "Operações de",
+      "c3_strong": "USD 1,8 bilhões",
+      "c3_p2": "anuais.",
+      "c4_p1": "Envio de ",
+      "c4_strong": "USD 50 milhões",
+      "c4_p2": " à",
+      "c4_p3": "controladora sob restrição cambial.",
+      "c5_titulo": "Crescimento no EBITDA",
+      "c5_sub": "(por unidade produzida em três anos)",
+      "c6_titulo": "Reestruturação operacional",
+      "c6_sub": "do EBITDA anual"
+    }
+  },
+  "conversaPage": {
+    "hero_titulo": "Toda intervenção começa com clareza.",
+    "hero_sub": "Um encontro estruturado para compreender o momento da empresa, seus objetivos e os desafios que impactam sua estrutura financeira.",
+    "entendimento_titulo": "O foco é entendimento consistente da dinâmica do negócio",
+    "entendimento_sub": "A partir dessa análise, avaliamos alinhamento e potencial escopo de atuação. Se houver convergência, definimos próximos passos de forma objetiva.",
+    "btn_agendar": "Agendar Conversa Estratégica",
+    "quote": "”Estrutura começa com clareza.”",
+    "cards": [
+      "Modelo geração de resultado",
+      "Estrutura de capital",
+      "Ciclo financeiro",
+      "Grau de maturidade organizacional",
+      "Prioridades de crescimento"
+    ]
+  },
+  "form": {
+    "titulo": "Agendar Conversa Estratégica",
+    "nome": "Nome *",
+    "sobrenome": "Sobrenome *",
+    "email": "E-mail *",
+    "telefone": "Telefone * (DDD + Número)",
+    "empresa": "Empresa *",
+    "mensagem": "Como podemos ajudar? *",
+    "btn_enviar": "Enviar",
+    "btn_enviando": "Enviando...",
+    "btn_sucesso": "Enviado com Sucesso!",
+    "btn_erro": "Erro ao enviar. Tente novamente.",
+    "err_req": "Campo obrigatório.",
+    "err_email": "E-mail inválido.",
+    "err_tel": "Telefone inválido.",
+    "err_msg": "Detalhe sua mensagem (mín. 10 caracteres)."
+  }
+}

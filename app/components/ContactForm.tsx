@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-export default function ContactForm() {
+export default function ContactForm({
+  dict,
+  lang,
+}: {
+  dict: any;
+  lang: string;
+}) {
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -16,17 +22,24 @@ export default function ContactForm() {
     Mensagem: "",
   });
 
-  // MÁSCARA FORÇADA PARA BRASIL (XX) XXXXX-XXXX
+  // MÁSCARA INTELIGENTE (BRASIL VS INTERNACIONAL)
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let valor = e.target.value.replace(/\D/g, ""); // Remove tudo que não é número
+    let valor = e.target.value;
 
-    valor = valor.substring(0, 11); // Limita a 11 dígitos
-
-    if (valor.length > 2) {
-      valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
-    }
-    if (valor.length > 7) {
-      valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    if (lang === "pt") {
+      // Máscara rigorosa Brasil: (XX) XXXXX-XXXX
+      valor = valor.replace(/\D/g, "");
+      valor = valor.substring(0, 11);
+      if (valor.length > 2) {
+        valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+      }
+      if (valor.length > 7) {
+        valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+      }
+    } else {
+      // Máscara Internacional Livre: Permite +, números, espaços e traços
+      valor = valor.replace(/[^\d\+\-\s()]/g, "");
+      valor = valor.substring(0, 20); // Limite razoável para formato internacional
     }
 
     setValores({ ...valores, Telefone: valor });
@@ -41,26 +54,29 @@ export default function ContactForm() {
     if (erros[name]) setErros((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // VALIDAÇÃO: TODOS OS CAMPOS OBRIGATÓRIOS
   const validarFormulario = () => {
     const novosErros: { [key: string]: string } = {};
 
-    if (!valores.Nome.trim()) novosErros.Nome = "Campo obrigatório.";
-    if (!valores.Sobrenome.trim()) novosErros.Sobrenome = "Campo obrigatório.";
+    if (!valores.Nome.trim()) novosErros.Nome = dict.form.err_req;
+    if (!valores.Sobrenome.trim()) novosErros.Sobrenome = dict.form.err_req;
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!valores.Email.trim() || !emailRegex.test(valores.Email)) {
-      novosErros.Email = "E-mail inválido.";
+      novosErros.Email = dict.form.err_email;
     }
 
+    // Validação de telefone flexível para PT ou EN
     const telNumeros = valores.Telefone.replace(/\D/g, "");
-    if (!valores.Telefone.trim() || telNumeros.length < 10) {
-      novosErros.Telefone = "Telefone inválido.";
+    if (
+      !valores.Telefone.trim() ||
+      telNumeros.length < (lang === "pt" ? 10 : 7)
+    ) {
+      novosErros.Telefone = dict.form.err_tel;
     }
 
-    if (!valores.Empresa.trim()) novosErros.Empresa = "Campo obrigatório.";
+    if (!valores.Empresa.trim()) novosErros.Empresa = dict.form.err_req;
     if (!valores.Mensagem.trim() || valores.Mensagem.length < 10) {
-      novosErros.Mensagem = "Detalhe sua mensagem (mín. 10 caracteres).";
+      novosErros.Mensagem = dict.form.err_msg;
     }
 
     setErros(novosErros);
@@ -111,7 +127,7 @@ export default function ContactForm() {
   return (
     <div className="bg-surface border border-white/10 p-8 md:p-12 w-full max-w-xl relative overflow-hidden">
       <h2 className="font-sans font-medium text-2xl text-brand-white mb-8 text-center">
-        Agendar Conversa Estratégica
+        {dict.form.titulo}
       </h2>
 
       <form
@@ -126,7 +142,7 @@ export default function ContactForm() {
               name="Nome"
               value={valores.Nome}
               onChange={handleInputChange}
-              placeholder="Nome *"
+              placeholder={dict.form.nome}
               className={getInputClass("Nome")}
             />
             {erros.Nome && (
@@ -141,7 +157,7 @@ export default function ContactForm() {
               name="Sobrenome"
               value={valores.Sobrenome}
               onChange={handleInputChange}
-              placeholder="Sobrenome *"
+              placeholder={dict.form.sobrenome}
               className={getInputClass("Sobrenome")}
             />
             {erros.Sobrenome && (
@@ -158,7 +174,7 @@ export default function ContactForm() {
             name="Email"
             value={valores.Email}
             onChange={handleInputChange}
-            placeholder="E-mail *"
+            placeholder={dict.form.email}
             className={getInputClass("Email")}
           />
           {erros.Email && (
@@ -174,7 +190,7 @@ export default function ContactForm() {
             name="Telefone"
             value={valores.Telefone}
             onChange={handlePhoneChange}
-            placeholder="Telefone * (DDD + Número)"
+            placeholder={dict.form.telefone}
             className={getInputClass("Telefone")}
           />
           {erros.Telefone && (
@@ -190,7 +206,7 @@ export default function ContactForm() {
             name="Empresa"
             value={valores.Empresa}
             onChange={handleInputChange}
-            placeholder="Empresa *"
+            placeholder={dict.form.empresa}
             className={getInputClass("Empresa")}
           />
           {erros.Empresa && (
@@ -205,7 +221,7 @@ export default function ContactForm() {
             name="Mensagem"
             value={valores.Mensagem}
             onChange={handleInputChange}
-            placeholder="Como podemos ajudar? *"
+            placeholder={dict.form.mensagem}
             rows={3}
             className={`bg-[#262626]/50 border p-4 text-brand-white focus:outline-none transition-all font-light ${
               erros.Mensagem
@@ -231,10 +247,10 @@ export default function ContactForm() {
                 : "bg-brand-white text-brand-black hover:bg-brand-gray hover:text-brand-white cursor-pointer"
           }`}
         >
-          {status === "loading" && "Enviando..."}
-          {status === "success" && "Enviado com Sucesso!"}
-          {status === "error" && "Erro ao enviar. Tente novamente."}
-          {status === "idle" && "Enviar"}
+          {status === "loading" && dict.form.btn_enviando}
+          {status === "success" && dict.form.btn_sucesso}
+          {status === "error" && dict.form.btn_erro}
+          {status === "idle" && dict.form.btn_enviar}
         </button>
       </form>
     </div>
