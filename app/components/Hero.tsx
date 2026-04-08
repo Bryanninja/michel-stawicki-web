@@ -19,15 +19,6 @@ export default function Hero() {
 
         <div className="max-w-2xl">
           <FadeIn>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="bg-brand-white text-brand-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">
-                $
-              </div>
-              <span className="font-sans text-brand-white/90 text-sm tracking-wide">
-                Consultor Financeiro
-              </span>
-            </div>
-
             <h1 className="font-sans font-medium text-4xl md:text-5xl leading-[1.1] text-brand-white mb-6 tracking-tight">
               Michel Stawicki
               <br />

@@ -7,6 +7,7 @@ import Estrutura from "./components/Estrutura";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
+import QuoteSection from "./components/QuoteSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <QuoteSection />
         <Crescimento />
         <Estrutura />
         <AtuacaoGlobal />
