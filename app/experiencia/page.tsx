@@ -83,8 +83,16 @@ export default function Experiencia() {
         <BentoGrid />
       </main>
       <Cta
-        title="Resultados decorrentes de estrutura, método e disciplina. Hoje, aplica essa lógica a empresas que desejam fortalecer sua base financeira e sustentar crescimento com consistência."
-        showLogo={true}
+        variant="left"
+        showLogo
+        title={
+          <>
+            Resultados decorrentes de estrutura, método e disciplina. Hoje,
+            aplica essa lógica a empresas que{" "}
+            <b>desejam fortalecer sua base financeira</b> e sustentar
+            crescimento com consistência.
+          </>
+        }
       />
       <Faq />
       <Footer />

@@ -11,7 +11,7 @@ export default function Hero() {
           alt="Michel Stawicki Consultor Financeiro"
           className="w-full h-full object-cover object-[75%_top]"
         />
-        <div className="absolute inset-0 bg-black/30 md:bg-transparent"></div>
+        <div className="absolute inset-0 bg-black/40 md:bg-transparent"></div>
       </div>
 
       <Container className="relative z-10 w-full  h-full flex flex-col justify-center">
@@ -19,17 +19,15 @@ export default function Hero() {
 
         <div className="max-w-2xl">
           <FadeIn>
-            <h1 className="font-sans font-medium text-4xl md:text-5xl leading-[1.1] text-brand-white mb-6 tracking-tight">
-              Michel Stawicki
-              <br />
-              Financial Structure
+            <h1 className="font-sans font-medium text-xs md:text-sm uppercase tracking-[0.2em] text-brand-white mb-4">
+              Michel Stawicki - Financial Structure
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.4}>
-            <p className="font-sans text-lg text-brand-white/80 max-w-sm leading-relaxed font-light">
+            <p className="font-sans text-2xl md:text-3xl  text-pretty text-brand-white/80 max-w-xl font-light md:leading-relaxed ">
               Estrutura financeira para sustentar crescimento com disciplina,
-              clareza e consistência
+              clareza e consistência.
             </p>
           </FadeIn>
         </div>

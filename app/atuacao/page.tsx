@@ -40,20 +40,11 @@ export default function Atuacao() {
             <div className="absolute inset-0 md:bg-gradient-to-r from-black/10 via-transparent to-black/10"></div>
           </div>
           <Container className="relative z-10 w-full h-full">
-            <div className="absolute top-32 left-6 md:top-40 md:left-12">
-              <FadeIn>
-                <h1 className="font-sans font-medium text-3xl md:text-5xl text-brand-white tracking-tighter opacity-90">
-                  A Estrutura
-                </h1>
-              </FadeIn>
-            </div>
             <div className="absolute bottom-12 right-6 md:bottom-24 md:right-12 text-right">
               <FadeIn delay={0.2}>
-                <p className="font-serif text-brand-white text-xl md:text-3xl leading-tight opacity-80">
+                <p className="font-serif text-left leading-tight text-brand-white text-xl md:text-3xl font-light opacity-80">
                   Michel Stawicki –<br />
-                  <span className="text-lg md:text-xl font-sans font-light tracking-[0.2em] uppercase">
-                    Financial Structure.
-                  </span>
+                  Financial Structure.
                 </p>
               </FadeIn>
             </div>
@@ -101,8 +92,14 @@ export default function Atuacao() {
         <Entregas />
 
         <Cta
-          title="Estrutura financeira sólida permite crescimento com previsibilidade, disciplina e consistência."
-          showLogo={true}
+          variant="left"
+          showLogo
+          title={
+            <>
+              Estrutura financeira sólida permite{" "}
+              <b>crescimento com previsibilidade, disciplina e consistência.</b>
+            </>
+          }
         />
       </main>
       <Faq />

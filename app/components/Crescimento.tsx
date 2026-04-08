@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "./Container";
 import FadeIn from "./FadeIn";
 
@@ -8,7 +10,7 @@ export default function Crescimento() {
       className="bg-brand-black w-full py-24 border-b border-brand-gray/10"
     >
       <Container>
-        {/* Cabeçalho da Seção */}
+        {/* Cabeçalho */}
         <div className="mb-16 max-w-3xl">
           <FadeIn>
             <h2 className="font-sans font-medium text-4xl md:text-5xl text-brand-white mb-6 tracking-tight">
@@ -17,29 +19,27 @@ export default function Crescimento() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="font-sans text-lg text-brand-white/70 leading-relaxed font-light">
-              A partir de determinado momento de expansão, a empresa precisa de
-              instrumentos que permitam sustentar operações capazes de absorver
-              maior complexidade ao longo do tempo.
+              Gestão financeira madura organiza prioridades, disciplina recursos
+              e sustenta decisões capazes de preservar valor ao longo do tempo.
             </p>
           </FadeIn>
         </div>
 
         <FadeIn delay={0.4}>
-          {/* Grid de Imagens com Hover Effect Premium */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
-            {/* Imagem 1 */}
-            <div className="relative aspect-video md:aspect-[4/3] overflow-hidden group bg-brand-gray/10">
+          {/* O PULO DO GATO: grid-cols-3 e h-[450px] para alinhar as alturas */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 items-stretch">
+            {/* Imagem 1 (Vertical/Estreita) - Ocupa 1 coluna */}
+            <div className="relative h-[400px] md:h-[500px] overflow-hidden group bg-brand-gray/10">
               <img
                 src="/crescimento-1.jpg"
                 alt="Painel Financeiro"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              {/* Overlay sutil para manter o tom dark */}
               <div className="absolute inset-0 bg-brand-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
             </div>
 
-            {/* Imagem 2 */}
-            <div className="relative aspect-square md:aspect-[4/3] overflow-hidden group bg-brand-gray/10">
+            {/* Imagem 2 (Horizontal/Larga) - Ocupa 2 colunas */}
+            <div className="md:col-span-2 relative h-[400px] md:h-[500px] overflow-hidden group bg-brand-gray/10">
               <img
                 src="/crescimento-2.jpg"
                 alt="Michel Stawicki analisando dados"
@@ -50,16 +50,16 @@ export default function Crescimento() {
           </div>
         </FadeIn>
 
-        {/* Rodapé da Seção */}
+        {/* Rodapé */}
         <div className="max-w-4xl">
           <FadeIn delay={0.5}>
             <p className="font-sans text-brand-white/80 leading-relaxed font-light text-lg">
               <strong className="text-brand-white font-medium">
                 Michel Stawicki
               </strong>{" "}
-              liderou transformações estruturais, dados de gestão, fusões e
-              processos de reestruturação organizacional em negócios que queriam
-              alcançar o próximo nível.
+              conduz intervenções estruturadas em gestão financeira para
+              empresas que desejam fortalecer a base que sustenta seu
+              crescimento.
             </p>
           </FadeIn>
         </div>

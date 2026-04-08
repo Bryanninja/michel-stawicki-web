@@ -7,6 +7,7 @@ import Estrutura from "./components/Estrutura";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
+import InterventionDetail from "./components/InterventionDetail";
 import QuoteSection from "./components/QuoteSection";
 
 export default function Home() {
@@ -18,10 +19,16 @@ export default function Home() {
         <QuoteSection />
         <Crescimento />
         <Estrutura />
+        <InterventionDetail />
         <AtuacaoGlobal />
         <Cta
-          title="Toda intervenção começa com clareza."
-          description="A Conversa Estratégica é um encontro estruturado para compreender o momento da empresa e seus objetivos."
+          title={
+            <>
+              Toda intervenção <br className="hidden md:block" />
+              começa com clareza.
+            </>
+          }
+          description="A Conversa Estratégica é um encontro estruturado para compreender a dinâmica do negócio e os desafios que impactam sua estrutura financeira."
         />
         <Faq />
         <Footer />
