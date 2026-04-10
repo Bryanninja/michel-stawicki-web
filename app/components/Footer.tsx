@@ -1,8 +1,34 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // Puxando o pathname aqui também
 import Container from "./Container";
 import FadeIn from "./FadeIn";
 
 export default function Footer({ dict, lang }: { dict: any; lang: string }) {
+  const pathname = usePathname();
+
+  // Lógica Universal do Footer
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    const currentPath =
+      pathname.endsWith("/") && pathname !== "/"
+        ? pathname.slice(0, -1)
+        : pathname;
+    const targetPath =
+      href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
+
+    if (
+      currentPath === targetPath ||
+      (href === `/${lang}` && pathname === "/")
+    ) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="bg-brand-black border-t border-brand-gray/10 pt-20 pb-8 w-full">
       <Container>
@@ -12,6 +38,7 @@ export default function Footer({ dict, lang }: { dict: any; lang: string }) {
               <Link
                 href={`/${lang}`}
                 prefetch={false}
+                onClick={(e) => handleNavClick(e, `/${lang}`)}
                 className="mb-6 opacity-90 hover:opacity-100 transition-opacity"
               >
                 <img
@@ -41,7 +68,6 @@ export default function Footer({ dict, lang }: { dict: any; lang: string }) {
                     if (item === "Contato")
                       href = `/${lang}/conversa-estrategica`;
 
-                    // Traduz o label baseado no dict do header (já que as palavras são as mesmas)
                     const label =
                       i === 0
                         ? dict.header.home
@@ -56,6 +82,7 @@ export default function Footer({ dict, lang }: { dict: any; lang: string }) {
                         <Link
                           prefetch={false}
                           href={href}
+                          onClick={(e) => handleNavClick(e, href)}
                           className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
                         >
                           {label}

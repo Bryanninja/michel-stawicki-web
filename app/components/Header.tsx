@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "./Button";
 
-// Agora o Header recebe o idioma atual e o dicionário de textos
 export default function Header({ lang, dict }: { lang: string; dict: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -26,14 +25,33 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
 
   // Lógica do Switcher de Idioma
   const toggleLanguage = () => {
-    // Troca de /pt para /en ou vice-versa na URL atual
     const newPath =
       lang === "pt"
         ? pathname.replace(/^\/pt/, "/en")
         : pathname.replace(/^\/en/, "/pt");
 
-    // Se por algum motivo estiver na raiz, redireciona pro inverso
     router.push(newPath || (lang === "pt" ? "/en" : "/pt"));
+  };
+
+  // NOVA LÓGICA UNIVERSAL: Rolar para o topo se clicar no link da aba atual
+  const handleNavClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
+    // Tira a barra do final (se existir) para comparar as URLs certinho
+    const currentPath =
+      pathname.endsWith("/") && pathname !== "/"
+        ? pathname.slice(0, -1)
+        : pathname;
+    const targetPath =
+      href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
+
+    // Se estiver na mesma página (ou for a home padrão)
+    if (
+      currentPath === targetPath ||
+      (href === `/${lang}` && pathname === "/")
+    ) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    closeMenu(); // Fecha o menu mobile de qualquer forma
   };
 
   return (
@@ -44,7 +62,7 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
           <Link
             href={`/${lang}`}
             prefetch={false}
-            onClick={closeMenu}
+            onClick={(e) => handleNavClick(e, `/${lang}`)}
             className="opacity-90 hover:opacity-100 transition-opacity"
           >
             <img
@@ -59,6 +77,7 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
             <Link
               href={`/${lang}`}
               prefetch={false}
+              onClick={(e) => handleNavClick(e, `/${lang}`)}
               className="font-sans text-sm text-brand-white/80 hover:text-brand-white transition-colors"
             >
               {dict.header.home}
@@ -66,6 +85,7 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
             <Link
               href={`/${lang}/atuacao`}
               prefetch={false}
+              onClick={(e) => handleNavClick(e, `/${lang}/atuacao`)}
               className="font-sans text-sm text-brand-white/80 hover:text-brand-white transition-colors"
             >
               {dict.header.atuacao}
@@ -73,6 +93,7 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
             <Link
               href={`/${lang}/experiencia`}
               prefetch={false}
+              onClick={(e) => handleNavClick(e, `/${lang}/experiencia`)}
               className="font-sans text-sm text-brand-white/80 hover:text-brand-white transition-colors"
             >
               {dict.header.experiencia}
@@ -87,13 +108,20 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
                 {lang === "pt" ? "EN" : "PT"}
               </button>
 
-              <Button
-                className="!py-2"
-                variant="white"
-                href={`/${lang}/conversa-estrategica`}
+              {/* Botão Conversa Estratégica (Desktop) */}
+              <div
+                onClickCapture={(e) =>
+                  handleNavClick(e, `/${lang}/conversa-estrategica`)
+                }
               >
-                {dict.header.conversa}
-              </Button>
+                <Button
+                  className="!py-2"
+                  variant="white"
+                  href={`/${lang}/conversa-estrategica`}
+                >
+                  {dict.header.conversa}
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -151,27 +179,33 @@ export default function Header({ lang, dict }: { lang: string; dict: any }) {
       >
         <Link
           href={`/${lang}`}
-          onClick={closeMenu}
+          onClick={(e) => handleNavClick(e, `/${lang}`)}
           className="font-sans text-2xl text-brand-white hover:text-brand-gray transition-colors"
         >
           {dict.header.home}
         </Link>
         <Link
           href={`/${lang}/atuacao`}
-          onClick={closeMenu}
+          onClick={(e) => handleNavClick(e, `/${lang}/atuacao`)}
           className="font-sans text-2xl text-brand-white hover:text-brand-gray transition-colors"
         >
           {dict.header.atuacao}
         </Link>
         <Link
           href={`/${lang}/experiencia`}
-          onClick={closeMenu}
+          onClick={(e) => handleNavClick(e, `/${lang}/experiencia`)}
           className="font-sans text-2xl text-brand-white hover:text-brand-gray transition-colors"
         >
           {dict.header.experiencia}
         </Link>
 
-        <div onClick={closeMenu} className="mt-4">
+        {/* Botão Conversa Estratégica (Mobile) */}
+        <div
+          className="mt-4"
+          onClickCapture={(e) =>
+            handleNavClick(e, `/${lang}/conversa-estrategica`)
+          }
+        >
           <Button
             className="py-2.5"
             variant="white"
