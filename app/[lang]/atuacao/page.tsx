@@ -100,7 +100,7 @@ export default async function Atuacao({
           }
         />
       </main>
-      <Faq dict={dict} />
+
       <Footer lang={lang} dict={dict} />
     </>
   );

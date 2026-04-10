@@ -116,7 +116,7 @@ export default async function ConversaEstrategica({
           </Container>
         </section>
       </main>
-      <Faq dict={dict} />
+
       <Footer lang={lang} dict={dict} />
     </>
   );

@@ -51,7 +51,7 @@ export default async function Home({
           }
           description={dict.homeCta.descricao}
         />
-        <Faq dict={dict} />
+
         <Footer lang={lang} dict={dict} />
       </main>
     </>

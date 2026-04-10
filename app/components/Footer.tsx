@@ -90,16 +90,6 @@ export default function Footer({ dict, lang }: { dict: any; lang: string }) {
                     E-mail
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/michel.financeiramente/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-sans text-brand-white/70 hover:text-brand-white text-sm transition-colors font-light"
-                  >
-                    Instagram
-                  </a>
-                </li>
               </ul>
             </div>
           </div>

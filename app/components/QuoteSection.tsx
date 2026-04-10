@@ -28,7 +28,7 @@ export default function QuoteSection({ dict }: { dict: any }) {
             </h2>
 
             {/* Slogan/Assinatura em Serifado */}
-            <p className="font-serif text-lg md:text-2xl text-brand-black/80 ">
+            <p className="font-serif italic text-lg md:text-2xl text-brand-black/80 ">
               {dict.quote.slogan}
             </p>
           </div>

@@ -13,8 +13,8 @@
 
   "quote": {
     "line1": "\"Empresas crescem. À medida que a escala",
-    "line2": "aumenta, a complexidade se intensifica\".",
-    "slogan": "\"Estrutura precede crescimento\""
+    "line2": "aumenta, a complexidade se intensifica.\"",
+    "slogan": "Estrutura precede crescimento."
   },
 
   "crescimento": {
@@ -25,7 +25,7 @@
   "estrutura": {
     "titulo": "Estrutura que Sustenta Decisões Financeiras",
     "subtitulo1": "Quando a complexidade aumenta, pontos isolados deixam de ser",
-    "subtitulo2": "o problema. O que precisa evoluir é a base",
+    "subtitulo2": "o problema. O que precisa evoluir é a base.",
     "cards": [
       "Reorganização da lógica\nde rentabilidade",
       "Redefinição dos\ninstrumentos de decisão",
@@ -125,7 +125,7 @@
     "intro": {
       "titulo1": "Intervenções em estrutura",
       "titulo2": "financeira exigem método.",
-      "descricao": "A atuação é conduzida de forma estruturada, com foco em diagnóstico claro, definição objetiva de escopo e fortalecimento da base organizacional"
+      "descricao": "A atuação é conduzida de forma estruturada, com foco em diagnóstico claro, definição objetiva de escopo e fortalecimento da base organizacional."
     },
     "metodo": [
       {

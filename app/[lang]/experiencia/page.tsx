@@ -102,7 +102,7 @@ export default async function Experiencia({
           </>
         }
       />
-      <Faq dict={dict} />
+
       <Footer lang={lang} dict={dict} />
     </>
   );

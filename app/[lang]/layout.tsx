@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Serif } from "next/font/google";
 import "../globals.css";
+import ScrollToTop from "../components/ScrollToTop";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${robotoSerif.variable}`}>
       <body className="bg-brand-black text-brand-white font-sans antialiased selection:bg-brand-gray selection:text-brand-white">
+        <ScrollToTop />
         {children}
       </body>
     </html>
