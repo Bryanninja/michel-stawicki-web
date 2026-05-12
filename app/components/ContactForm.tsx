@@ -45,7 +45,7 @@ export default function ContactForm({
       Nome: "",
       Sobrenome: "",
       Email: "",
-      Telefone: "",
+      Telefone: lang === "pt" ? "+55" : "+1", // <-- A mágica da correção aqui
       Empresa: "",
       Mensagem: "",
     },
@@ -63,7 +63,8 @@ export default function ContactForm({
       });
       if (response.ok) {
         setStatus("success");
-        reset(); // Limpa o formulário automaticamente
+        // Força a limpeza limpando explicitamente os erros e restaurando os valores padrão
+        reset(undefined, { keepErrors: false, keepValues: false });
         setTimeout(() => setStatus("idle"), 5000);
       } else {
         setStatus("error");

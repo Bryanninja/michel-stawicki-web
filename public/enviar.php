@@ -1,59 +1,85 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'phpmailer/Exception.php';
-require 'phpmailer/PHPMailer.php';
-require 'phpmailer/SMTP.php';
-
+// Permite que o React leia a resposta do PHP
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mail = new PHPMailer(true);
-
-    try {
-        // Configuração de Acentuação (Resolve o Ã§Ã£o)
-        $mail->CharSet = 'UTF-8'; 
-
-        // Configurações do Servidor
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.hostinger.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'no-reply@msfinancialstructure.com';
-        $mail->Password   = 'SENHA_NO_SERVIDOR_HOSTINGER'; // Senha segura aqui
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port       = 465;
-
-        // Remetente e Destinatário
-        $mail->setFrom('no-reply@msfinancialstructure.com', 'Site MS Financial');
-        $mail->addAddress('relacionamento@msfinancialstructure.com');
-        $mail->addReplyTo($_POST['Email'], $_POST['Nome']);
-
-        // Conteúdo do E-mail
-        $mail->isHTML(true);
-        $mail->Subject = "Novo Contato: " . $_POST['Nome'] . " " . $_POST['Sobrenome'];
-        
-        // Template HTML mais limpo
-        $mail->Body    = "
-            <div style='font-family: sans-serif; line-height: 1.6; color: #333;'>
-                <h2 style='color: #000;'>Nova solicitação de conversa estratégica</h2>
-                <p><strong>Nome:</strong> {$_POST['Nome']} {$_POST['Sobrenome']}</p>
-                <p><strong>E-mail:</strong> {$_POST['Email']}</p>
-                <p><strong>Telefone:</strong> {$_POST['Telefone']}</p>
-                <p><strong>Empresa:</strong> {$_POST['Empresa']}</p>
-                <hr style='border: 0; border-top: 1px solid #eee;'>
-                <p><strong>Mensagem:</strong><br>" . nl2br($_POST['Mensagem']) . "</p>
-            </div>
-        ";
-
-        $mail->send();
-        echo json_encode(["status" => "success"]);
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode(["status" => "error", "message" => "Erro técnico: " . $mail->ErrorInfo]);
-    }
-} else {
+// Verifica se a requisição é do tipo POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(["status" => "method_not_allowed"]);
+    echo json_encode(['erro' => 'Método não permitido']);
+    exit;
+}
+
+// 1. SUA CHAVE DE API DO RESEND (Cole aqui após gerar no painel deles)
+$resend_api_key = 're_gCK1jeLN_C5gKsedTs7gBTo242hWD4mBx';
+
+// 2. CONFIGURAÇÕES DE E-MAIL
+$email_remetente = 'onboarding@resend.dev'; // Quem envia (Domínio verificado no Resend)
+$email_destino = 'relacionamento@msfinancialstructure.com'; // Quem recebe os formulários preenchidos
+
+// 3. CAPTURA E LIMPEZA DOS DADOS ENVIADOS PELO REACT
+$nome = htmlspecialchars($_POST['Nome'] ?? '');
+$sobrenome = htmlspecialchars($_POST['Sobrenome'] ?? '');
+$email = htmlspecialchars($_POST['Email'] ?? '');
+$telefone = htmlspecialchars($_POST['Telefone'] ?? '');
+$empresa = htmlspecialchars($_POST['Empresa'] ?? '');
+$mensagem = htmlspecialchars($_POST['Mensagem'] ?? '');
+
+// Validação básica de segurança no servidor
+if (empty($nome) || empty($email) || empty($mensagem)) {
+    http_response_code(400);
+    echo json_encode(['erro' => 'Dados incompletos']);
+    exit;
+}
+
+// 4. MONTAGEM DO CORPO DO E-MAIL EM HTML
+$html_content = "
+    <div style='font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;'>
+        <h2 style='color: #1A1A1A; border-bottom: 2px solid #eaeaea; padding-bottom: 10px;'>Novo Contato - Site MS Financial</h2>
+        
+        <p><strong>Nome:</strong> {$nome} {$sobrenome}</p>
+        <p><strong>E-mail:</strong> {$email}</p>
+        <p><strong>Telefone:</strong> {$telefone}</p>
+        <p><strong>Empresa:</strong> {$empresa}</p>
+        
+        <h3 style='margin-top: 20px; color: #1A1A1A;'>Mensagem:</h3>
+        <div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 4px solid #333;'>
+            <p style='white-space: pre-wrap; margin: 0;'>{$mensagem}</p>
+        </div>
+        
+        <p style='font-size: 12px; color: #888; margin-top: 30px; text-align: center;'>Este e-mail foi enviado automaticamente pelo formulário do site.</p>
+    </div>
+";
+
+// 5. PREPARAÇÃO DA REQUISIÇÃO PARA O RESEND
+$data = [
+    'from' => 'MS Financial <' . $email_remetente . '>',
+    'to' => [$email_destino],
+    'subject' => 'Nova Solicitação de Conversa Estratégica - ' . $empresa,
+    'html' => $html_content,
+    'reply_to' => $email // Permite que a equipe clique em "Responder" e vá direto para o e-mail do cliente
+];
+
+$ch = curl_init('https://api.resend.com/emails');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $resend_api_key,
+    'Content-Type: application/json'
+]);
+
+// 6. EXECUTA O DISPARO
+$response = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+// 7. RETORNA PARA O REACT SE DEU CERTO OU ERRADO
+if ($http_code == 200 || $http_code == 201) {
+    http_response_code(200);
+    echo json_encode(['sucesso' => true, 'mensagem' => 'E-mail enviado com sucesso.']);
+} else {
+    http_response_code(500);
+    echo json_encode(['erro' => 'Falha ao enviar e-mail', 'detalhes' => json_decode($response)]);
 }
 ?>
