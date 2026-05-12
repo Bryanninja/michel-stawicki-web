@@ -1,8 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+
+// Função para criar o schema passando o dicionário (dict) de traduções
+const createFormSchema = (dict: any, lang: string) =>
+  z.object({
+    Nome: z.string().min(1, dict.form.err_req),
+    Sobrenome: z.string().min(1, dict.form.err_req),
+    Email: z.string().min(1, dict.form.err_req).email(dict.form.err_email),
+    Telefone: z.string().min(lang === "pt" ? 10 : 7, dict.form.err_tel),
+    Empresa: z.string().min(1, dict.form.err_req),
+    Mensagem: z.string().min(10, dict.form.err_msg),
+  });
 
 export default function ContactForm({
   dict,
@@ -14,75 +28,42 @@ export default function ContactForm({
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
-  const [erros, setErros] = useState<{ [key: string]: string }>({});
-  const [valores, setValores] = useState({
-    Nome: "",
-    Sobrenome: "",
-    Email: "",
-    Telefone: "",
-    Empresa: "",
-    Mensagem: "",
+
+  // Tipagem inferida diretamente do Zod
+  const formSchema = createFormSchema(dict, lang);
+  type FormDataSchema = z.infer<typeof formSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<FormDataSchema>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      Nome: "",
+      Sobrenome: "",
+      Email: "",
+      Telefone: "",
+      Empresa: "",
+      Mensagem: "",
+    },
   });
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setValores({ ...valores, [name]: value });
-    if (erros[name]) setErros((prev) => ({ ...prev, [name]: "" }));
-  };
-
-  const validarFormulario = () => {
-    const novosErros: { [key: string]: string } = {};
-
-    if (!valores.Nome.trim()) novosErros.Nome = dict.form.err_req;
-    if (!valores.Sobrenome.trim()) novosErros.Sobrenome = dict.form.err_req;
-
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!valores.Email.trim() || !emailRegex.test(valores.Email)) {
-      novosErros.Email = dict.form.err_email;
-    }
-
-    // Validação simples: se tem pelo menos o código do país e alguns números
-    if (!valores.Telefone || valores.Telefone.length < 10) {
-      novosErros.Telefone = dict.form.err_tel;
-    }
-
-    if (!valores.Empresa.trim()) novosErros.Empresa = dict.form.err_req;
-    if (!valores.Mensagem.trim() || valores.Mensagem.length < 10) {
-      novosErros.Mensagem = dict.form.err_msg;
-    }
-
-    setErros(novosErros);
-    return Object.keys(novosErros).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!validarFormulario()) return;
-
+  const onSubmit = async (data: FormDataSchema) => {
     setStatus("loading");
     const formData = new FormData();
-    Object.entries(valores).forEach(([key, value]) =>
-      formData.append(key, value),
-    );
+    Object.entries(data).forEach(([key, value]) => formData.append(key, value));
 
     try {
-      // Usando o enviar.php que vamos configurar com o Resend
       const response = await fetch("/enviar.php", {
         method: "POST",
         body: formData,
       });
       if (response.ok) {
         setStatus("success");
-        setValores({
-          Nome: "",
-          Sobrenome: "",
-          Email: "",
-          Telefone: "",
-          Empresa: "",
-          Mensagem: "",
-        });
+        reset(); // Limpa o formulário automaticamente
         setTimeout(() => setStatus("idle"), 5000);
       } else {
         setStatus("error");
@@ -92,9 +73,9 @@ export default function ContactForm({
     }
   };
 
-  const getInputClass = (campo: string) =>
+  const getInputClass = (error?: any) =>
     `bg-transparent border-b py-2 text-brand-white focus:outline-none transition-all font-light w-full ${
-      erros[campo]
+      error
         ? "border-red-500 placeholder-red-400/50"
         : "border-white/20 focus:border-brand-white"
     }`;
@@ -106,7 +87,7 @@ export default function ContactForm({
       </h2>
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 relative z-10"
         noValidate
       >
@@ -114,30 +95,26 @@ export default function ContactForm({
           <div className="flex flex-col relative">
             <input
               type="text"
-              name="Nome"
-              value={valores.Nome}
-              onChange={handleInputChange}
+              {...register("Nome")}
               placeholder={dict.form.nome}
-              className={getInputClass("Nome")}
+              className={getInputClass(errors.Nome)}
             />
-            {erros.Nome && (
+            {errors.Nome && (
               <span className="text-red-500 text-[10px] absolute -bottom-4">
-                {erros.Nome}
+                {errors.Nome.message}
               </span>
             )}
           </div>
           <div className="flex flex-col relative">
             <input
               type="text"
-              name="Sobrenome"
-              value={valores.Sobrenome}
-              onChange={handleInputChange}
+              {...register("Sobrenome")}
               placeholder={dict.form.sobrenome}
-              className={getInputClass("Sobrenome")}
+              className={getInputClass(errors.Sobrenome)}
             />
-            {erros.Sobrenome && (
+            {errors.Sobrenome && (
               <span className="text-red-500 text-[10px] absolute -bottom-4">
-                {erros.Sobrenome}
+                {errors.Sobrenome.message}
               </span>
             )}
           </div>
@@ -146,44 +123,35 @@ export default function ContactForm({
         <div className="flex flex-col relative">
           <input
             type="email"
-            name="Email"
-            value={valores.Email}
-            onChange={handleInputChange}
+            {...register("Email")}
             placeholder={dict.form.email}
-            className={getInputClass("Email")}
+            className={getInputClass(errors.Email)}
           />
-          {erros.Email && (
+          {errors.Email && (
             <span className="text-red-500 text-[10px] absolute -bottom-4">
-              {erros.Email}
+              {errors.Email.message}
             </span>
           )}
         </div>
 
-        {/* COMPONENTE INTERNACIONAL DE TELEFONE */}
+        {/* COMPONENTE INTERNACIONAL CONTROLADO PELO REACT HOOK FORM */}
         <div className="flex flex-col relative">
-          <PhoneInput
-            defaultCountry={lang === "pt" ? "br" : "us"}
-            value={valores.Telefone}
-            onChange={(phone) => setValores({ ...valores, Telefone: phone })}
-            className="international-phone-container"
-            inputClassName={getInputClass("Telefone")}
-            placeholder={dict.form.telefone}
-            style={
-              {
-                // Removendo os estilos padrão da biblioteca para casar com o seu design
-                "--react-international-phone-border-color": "transparent",
-                "--react-international-phone-bg-color": "transparent",
-                "--react-international-phone-text-color": "#FFFFFF",
-                "--react-international-phone-font-size": "16px",
-                "--react-international-phone-border-radius": "0px",
-                "--react-international-phone-dropdown-item-bg-color": "#1A1A1A",
-                "--react-international-phone-dropdown-bg-color": "#1A1A1A",
-              } as React.CSSProperties
-            }
+          <Controller
+            name="Telefone"
+            control={control}
+            render={({ field }) => (
+              <PhoneInput
+                {...field}
+                defaultCountry={lang === "pt" ? "br" : "us"}
+                className="international-phone-container"
+                inputClassName={getInputClass(errors.Telefone)}
+                placeholder={dict.form.telefone}
+              />
+            )}
           />
-          {erros.Telefone && (
+          {errors.Telefone && (
             <span className="text-red-500 text-[10px] absolute -bottom-4">
-              {erros.Telefone}
+              {errors.Telefone.message}
             </span>
           )}
         </div>
@@ -191,35 +159,31 @@ export default function ContactForm({
         <div className="flex flex-col relative">
           <input
             type="text"
-            name="Empresa"
-            value={valores.Empresa}
-            onChange={handleInputChange}
+            {...register("Empresa")}
             placeholder={dict.form.empresa}
-            className={getInputClass("Empresa")}
+            className={getInputClass(errors.Empresa)}
           />
-          {erros.Empresa && (
+          {errors.Empresa && (
             <span className="text-red-500 text-[10px] absolute -bottom-4">
-              {erros.Empresa}
+              {errors.Empresa.message}
             </span>
           )}
         </div>
 
         <div className="flex flex-col relative mt-2">
           <textarea
-            name="Mensagem"
-            value={valores.Mensagem}
-            onChange={handleInputChange}
+            {...register("Mensagem")}
             placeholder={dict.form.mensagem}
             rows={3}
-            className={`bg-[#262626]/50 border p-4 text-brand-white focus:outline-none transition-all font-light ${
-              erros.Mensagem
+            className={`bg-[#262626]/50 border p-4 text-brand-white focus:outline-none transition-all font-light w-full ${
+              errors.Mensagem
                 ? "border-red-500 placeholder-red-400/50"
                 : "border-white/10 focus:border-brand-white"
             }`}
           />
-          {erros.Mensagem && (
+          {errors.Mensagem && (
             <span className="text-red-500 text-[10px] absolute -bottom-4">
-              {erros.Mensagem}
+              {errors.Mensagem.message}
             </span>
           )}
         </div>
@@ -242,22 +206,24 @@ export default function ContactForm({
         </button>
       </form>
 
-      {/* CSS específico para forçar o estilo dark minimalista na biblioteca de telefone */}
+      {/* CSS GLOBAL: Correções visuais da biblioteca e Autofill */}
       <style jsx global>{`
-        /* 1. Alinha a bandeira e o input em uma única linha com a borda embaixo */
+        /* 1. Alinha a bandeira e o input em uma única linha */
         .international-phone-container {
           display: flex;
           width: 100%;
           border-bottom: 1px solid rgba(255, 255, 255, 0.2);
           transition: border-color 0.3s ease;
+
+          --react-international-phone-text-color: white;
+          --react-international-phone-font-size: 1rem;
         }
 
-        /* Hover/Focus na linha inteira */
         .international-phone-container:focus-within {
           border-bottom-color: #ffffff;
         }
 
-        /* 2. Remove fundos e bordas individuais dos componentes internos */
+        /* 2. Remove fundos e bordas dos componentes internos */
         .international-phone-container
           .react-international-phone-country-selector-button,
         .international-phone-container .react-international-phone-input {
@@ -265,28 +231,37 @@ export default function ContactForm({
           border: none !important;
         }
 
-        /* 3. Ajusta o campo onde os números são digitados */
-        .international-phone-container .react-international-phone-input input {
+        /* 3. Ajusta o campo de digitação */
+        .international-phone-container .react-international-phone-input input,
+        .international-phone-container
+          .react-international-phone-input
+          input:not(:-webkit-autofill) {
           background-color: transparent !important;
           color: white !important;
+          font-size: 1rem !important;
+          font-weight: 300 !important;
           width: 100% !important;
           padding: 8px 0 8px 8px !important;
           border: none !important;
           outline: none !important;
           box-shadow: none !important;
+          -webkit-text-fill-color: white !important;
         }
 
-        /* 4. CONSERTA O MENU SUSPENSO (Dropdown) */
+        .react-international-phone-text-color {
+          color: white !important;
+        }
+
+        /* 4. Corrige o Dropdown (Z-index e cores) */
         .international-phone-container
           .react-international-phone-country-selector-dropdown {
-          background-color: #1a1a1a !important; /* Fundo escuro SÓLIDO para não misturar com o formulário */
+          background-color: #1a1a1a !important;
           border: 1px solid rgba(255, 255, 255, 0.1) !important;
           border-radius: 4px;
-          z-index: 50 !important; /* Força a lista a ficar por cima de tudo (textarea, labels) */
+          z-index: 50 !important;
           margin-top: 4px !important;
         }
 
-        /* Cores do texto dentro da lista de países */
         .international-phone-container
           .react-international-phone-country-selector-dropdown__list-item-country-name {
           color: white !important;
@@ -296,13 +271,11 @@ export default function ContactForm({
           color: rgba(255, 255, 255, 0.5) !important;
         }
 
-        /* Efeito de passar o mouse nos países */
         .international-phone-container
           .react-international-phone-country-selector-dropdown__list-item:hover {
           background-color: #333333 !important;
         }
 
-        /* Ajusta o fundo do país que está atualmente selecionado ou focado pelo teclado */
         .international-phone-container
           .react-international-phone-country-selector-dropdown__list-item--focused,
         .international-phone-container
@@ -312,7 +285,7 @@ export default function ContactForm({
           background-color: #2a2a2a !important;
         }
 
-        /* 5. CORRIGE O AUTOFILL DO NAVEGADOR (Fundo Azul) */
+        /* 5. Corrige o Fundo Azul do Autofill (Chrome/Safari) */
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
         input:-webkit-autofill:focus,
@@ -320,9 +293,10 @@ export default function ContactForm({
           -webkit-box-shadow: 0 0 0 30px #1a1a1a inset !important;
           -webkit-text-fill-color: white !important;
           transition: background-color 5000s ease-in-out 0s;
+          font-size: 16px !important; /* Mantém o tamanho da fonte */
         }
 
-        /* Aplica a correção também para o input dentro do componente de telefone */
+        /* Correção ESPECÍFICA e AGRESSIVA para o input de telefone */
         .international-phone-container
           .react-international-phone-input
           input:-webkit-autofill,
@@ -335,9 +309,12 @@ export default function ContactForm({
         .international-phone-container
           .react-international-phone-input
           input:-webkit-autofill:active {
-          -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+          -webkit-box-shadow: 0 0 0 30px #1a1a1a inset !important; /* Mudei para a cor do fundo para forçar a ocultação do azul */
           -webkit-text-fill-color: white !important;
+          color: white !important;
           transition: background-color 5000s ease-in-out 0s;
+          font-size: 16px !important; /* Força o tamanho da fonte a não diminuir */
+          padding-left: 8px !important; /* Garante que não vai grudar na bandeira */
         }
       `}</style>
     </div>
