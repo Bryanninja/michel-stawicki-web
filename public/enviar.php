@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $resend_api_key = 're_gCK1jeLN_C5gKsedTs7gBTo242hWD4mBx';
 
 // 2. CONFIGURAÇÕES DE E-MAIL
-$email_remetente = 'onboarding@resend.dev'; // Quem envia (Domínio verificado no Resend)
+$email_remetente = 'no-reply@msfinancialstructure.com';// Quem envia (Domínio verificado no Resend)
 $email_destino = 'relacionamento@msfinancialstructure.com'; // Quem recebe os formulários preenchidos
 
 // 3. CAPTURA E LIMPEZA DOS DADOS ENVIADOS PELO REACT

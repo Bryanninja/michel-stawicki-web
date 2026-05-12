@@ -63,9 +63,20 @@ export default function ContactForm({
       });
       if (response.ok) {
         setStatus("success");
-        // Força a limpeza limpando explicitamente os erros e restaurando os valores padrão
-        reset(undefined, { keepErrors: false, keepValues: false });
-        setTimeout(() => setStatus("idle"), 5000);
+        setTimeout(() => {
+          reset(
+            {
+              Nome: "",
+              Sobrenome: "",
+              Email: "",
+              Telefone: lang === "pt" ? "+55" : "+1",
+              Empresa: "",
+              Mensagem: "",
+            },
+            { keepErrors: false, keepDirty: false, keepTouched: false },
+          );
+          setStatus("idle");
+        }, 5000);
       } else {
         setStatus("error");
       }

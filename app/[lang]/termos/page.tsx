@@ -1,18 +1,45 @@
+import { Metadata } from "next";
 import { getDictionary } from "../../getDictionary";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Container from "../../components/Container";
 import FadeIn from "../../components/FadeIn";
 
+type Props = {
+  params: Promise<{ lang: "pt" | "en" }>;
+};
+
+// --- SEO PARA PÁGINA DE TERMOS E PRIVACIDADE ---
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const isPt = lang === "pt";
+
+  return {
+    title: isPt ? "Termos de Uso e Privacidade" : "Terms of Use and Privacy",
+    description: isPt
+      ? "Transparência e segurança. Leia nossos termos de uso e nossa política de privacidade de dados."
+      : "Transparency and security. Read our terms of use and data privacy policy.",
+    alternates: {
+      canonical: `https://msfinancialstructure.com/${lang}/termos`,
+      languages: {
+        "pt-BR": "https://msfinancialstructure.com/pt/termos",
+        "en-US": "https://msfinancialstructure.com/en/termos",
+      },
+    },
+    // Para páginas jurídicas, é comum dizer ao robô para indexar, mas não priorizar tanto nos resultados
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
 export function generateStaticParams() {
   return [{ lang: "pt" }, { lang: "en" }];
 }
 
-export default async function Termos({
-  params,
-}: {
-  params: Promise<{ lang: "pt" | "en" }>;
-}) {
+export default async function Termos({ params }: Props) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
@@ -93,15 +120,15 @@ export default async function Termos({
                 <h3 className="font-medium text-brand-white mb-4">
                   {dict.termosPage.secoes.contato_t}
                 </h3>
-                <p className="text-sm">
+                <div className="text-sm">
                   {dict.termosPage.secoes.contato_p} <br />
                   <a
                     href="mailto:relacionamento@msfinancialstructure.com"
-                    className="text-brand-white hover:underline mt-2 inline-block"
+                    className="text-brand-white hover:underline mt-2 inline-block transition-all"
                   >
                     relacionamento@msfinancialstructure.com
                   </a>
-                </p>
+                </div>
               </section>
             </div>
           </FadeIn>

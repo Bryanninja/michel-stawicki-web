@@ -1,26 +1,56 @@
+import { Metadata } from "next";
 import { getDictionary } from "../../getDictionary";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Cta from "../../components/Cta";
 import Entregas from "../../components/Entregas";
-import Faq from "../../components/Faq";
 import Container from "../../components/Container";
 import FadeIn from "../../components/FadeIn";
+import Cta from "../../components/Cta";
+
+// Definindo a interface para o método para acabar com o erro de "any"
+interface MetodoItem {
+  t: string;
+  d: string;
+}
+
+type Props = {
+  params: Promise<{ lang: "pt" | "en" }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const isPt = lang === "pt";
+
+  return {
+    title: isPt ? "Metodologia e Atuação" : "Expertise and Methodology",
+    description: isPt
+      ? "Conheça o método exclusivo de estruturação financeira que traz clareza e disciplina para o crescimento da sua empresa."
+      : "Discover the exclusive financial structuring method that brings clarity and discipline to your business growth.",
+    alternates: {
+      canonical: `https://msfinancialstructure.com/${lang}/atuacao`,
+      languages: {
+        "pt-BR": "https://msfinancialstructure.com/pt/atuacao",
+        "en-US": "https://msfinancialstructure.com/en/atuacao",
+      },
+    },
+  };
+}
 
 export function generateStaticParams() {
   return [{ lang: "pt" }, { lang: "en" }];
 }
 
-export default async function Atuacao({
-  params,
-}: {
-  params: Promise<{ lang: "pt" | "en" }>;
-}) {
+export default async function Atuacao({ params }: Props) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
 
-  const metodo = dict.atuacaoPage.metodo;
+  // Definindo isPt aqui dentro também para a imagem
+  const isPt = lang === "pt";
+
+  // Tipando o array do método corretamente
+  const metodo: MetodoItem[] = dict.atuacaoPage.metodo;
 
   return (
     <>
@@ -30,7 +60,11 @@ export default async function Atuacao({
           <div className="absolute w-full h-dvh inset-0 z-0">
             <img
               src="/atuacao-hero-full.jpg"
-              alt="Michel"
+              alt={
+                isPt
+                  ? "Michel Stawicki - Atuação Profissional"
+                  : "Michel Stawicki - Professional Expertise"
+              }
               className="object-cover h-dvh w-full object-center md:object-[center_20%]"
             />
             <div className="absolute inset-0 md:bg-gradient-to-r from-black/10 via-transparent to-black/10"></div>
@@ -48,7 +82,6 @@ export default async function Atuacao({
           </Container>
         </section>
 
-        {/* INTRO */}
         <section className="max-w-3xl mx-auto px-6 py-24 text-center">
           <FadeIn>
             <h2 className="font-sans font-medium text-3xl md:text-5xl text-brand-white mb-8 tracking-tight">
@@ -65,10 +98,9 @@ export default async function Atuacao({
         </section>
 
         <FadeIn delay={0.3}>
-          {/* MÉTODO GRID */}
           <section className=" pb-32">
             <Container className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {metodo.map((item: any, index: number) => (
+              {metodo.map((item, index) => (
                 <div
                   key={index}
                   className="bg-surface p-10 md:p-14 border border-brand-gray/20 hover:bg-surface-hover transition-all duration-300"

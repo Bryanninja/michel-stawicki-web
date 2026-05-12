@@ -1,24 +1,57 @@
+import { Metadata } from "next";
 import { getDictionary } from "../../getDictionary";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Cta from "../../components/Cta";
 import BentoGrid from "../../components/BentoGrid";
-import Faq from "../../components/Faq";
 import Container from "../../components/Container";
 import FadeIn from "../../components/FadeIn";
+
+type Props = {
+  params: Promise<{ lang: "pt" | "en" }>;
+};
+
+// --- SEO PARA PÁGINA DE EXPERIÊNCIA ---
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const isPt = lang === "pt";
+
+  return {
+    title: isPt ? "Experiência e Trajetória" : "Experience and Trajectory",
+    description: isPt
+      ? "Conheça a trajetória de Michel Stawicki: mais de 30 anos liderando operações financeiras globais e estruturando empresas de sucesso."
+      : "Discover Michel Stawicki's journey: over 30 years leading global financial operations and structuring successful companies.",
+    alternates: {
+      canonical: `https://msfinancialstructure.com/${lang}/experiencia`,
+      languages: {
+        "pt-BR": "https://msfinancialstructure.com/pt/experiencia",
+        "en-US": "https://msfinancialstructure.com/en/experiencia",
+      },
+    },
+    openGraph: {
+      url: `https://msfinancialstructure.com/${lang}/experiencia`,
+      title: isPt
+        ? "Experiência e Trajetória | MS Financial"
+        : "Experience & Trajectory | MS Financial",
+      description: isPt
+        ? "30 anos de expertise financeira a serviço do seu negócio."
+        : "30 years of financial expertise at your business's service.",
+    },
+  };
+}
 
 export function generateStaticParams() {
   return [{ lang: "pt" }, { lang: "en" }];
 }
 
-export default async function Experiencia({
-  params,
-}: {
-  params: Promise<{ lang: "pt" | "en" }>;
-}) {
+export default async function Experiencia({ params }: Props) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
+
+  // Definição para uso nos Alts das imagens
+  const isPt = lang === "pt";
 
   return (
     <>
@@ -39,7 +72,11 @@ export default async function Experiencia({
               <div className="w-full max-w-360 mx-auto aspect-[16/9]  overflow-hidden">
                 <img
                   src="/experiencia-hero.jpg"
-                  alt="Michel Stawicki"
+                  alt={
+                    isPt
+                      ? "Michel Stawicki - Especialista Financeiro"
+                      : "Michel Stawicki - Financial Specialist"
+                  }
                   className="w-full h-full object-cover grayscale-[20%]"
                 />
               </div>
@@ -55,7 +92,11 @@ export default async function Experiencia({
                 <div className="aspect-auto overflow-hidden">
                   <img
                     src="/experiencia-2.jpg"
-                    alt="Trajetória Michel"
+                    alt={
+                      isPt
+                        ? "Histórico Profissional Michel Stawicki"
+                        : "Michel Stawicki Professional History"
+                    }
                     className="w-full h-full object-cover grayscale-[20%]"
                   />
                 </div>

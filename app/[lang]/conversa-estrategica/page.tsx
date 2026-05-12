@@ -1,21 +1,51 @@
+import { Metadata } from "next";
 import { getDictionary } from "../../getDictionary";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Container from "../../components/Container";
 import ContactForm from "../../components/ContactForm";
 import Button from "../../components/Button";
-import Faq from "../../components/Faq";
 import FadeIn from "../../components/FadeIn";
+
+type Props = {
+  params: Promise<{ lang: "pt" | "en" }>;
+};
+
+// --- SEO PARA PÁGINA DE CONVERSÃO ---
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const isPt = lang === "pt";
+
+  return {
+    title: isPt ? "Agendar Conversa Estratégica" : "Schedule Strategic Meeting",
+    description: isPt
+      ? "Agende uma conversa exclusiva com Michel Stawicki para diagnosticar e estruturar as finanças da sua empresa."
+      : "Schedule an exclusive meeting with Michel Stawicki to diagnose and structure your company's finances.",
+    alternates: {
+      canonical: `https://msfinancialstructure.com/${lang}/conversa`,
+      languages: {
+        "pt-BR": "https://msfinancialstructure.com/pt/conversa",
+        "en-US": "https://msfinancialstructure.com/en/conversa",
+      },
+    },
+    openGraph: {
+      url: `https://msfinancialstructure.com/${lang}/conversa`,
+      title: isPt
+        ? "Conversa Estratégica | MS Financial"
+        : "Strategic Conversation | MS Financial",
+      description: isPt
+        ? "O primeiro passo para a clareza financeira do seu negócio."
+        : "The first step toward your business's financial clarity.",
+    },
+  };
+}
 
 export function generateStaticParams() {
   return [{ lang: "pt" }, { lang: "en" }];
 }
 
-export default async function ConversaEstrategica({
-  params,
-}: {
-  params: Promise<{ lang: "pt" | "en" }>;
-}) {
+export default async function ConversaEstrategica({ params }: Props) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
@@ -69,7 +99,6 @@ export default async function ConversaEstrategica({
             </FadeIn>
 
             <FadeIn delay={0.2}>
-              {/* Grid 3 em cima, 2 embaixo (Estilo Bento) */}
               <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-16">
                 {cards.map((card, index) => (
                   <div
