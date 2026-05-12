@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 export default function ContactForm({
   dict,
@@ -22,30 +24,6 @@ export default function ContactForm({
     Mensagem: "",
   });
 
-  // MÁSCARA INTELIGENTE (BRASIL VS INTERNACIONAL)
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let valor = e.target.value;
-
-    if (lang === "pt") {
-      // Máscara rigorosa Brasil: (XX) XXXXX-XXXX
-      valor = valor.replace(/\D/g, "");
-      valor = valor.substring(0, 11);
-      if (valor.length > 2) {
-        valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
-      }
-      if (valor.length > 7) {
-        valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
-      }
-    } else {
-      // Máscara Internacional Livre: Permite +, números, espaços e traços
-      valor = valor.replace(/[^\d\+\-\s()]/g, "");
-      valor = valor.substring(0, 20); // Limite razoável para formato internacional
-    }
-
-    setValores({ ...valores, Telefone: valor });
-    if (erros.Telefone) setErros((prev) => ({ ...prev, Telefone: "" }));
-  };
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -65,12 +43,8 @@ export default function ContactForm({
       novosErros.Email = dict.form.err_email;
     }
 
-    // Validação de telefone flexível para PT ou EN
-    const telNumeros = valores.Telefone.replace(/\D/g, "");
-    if (
-      !valores.Telefone.trim() ||
-      telNumeros.length < (lang === "pt" ? 10 : 7)
-    ) {
+    // Validação simples: se tem pelo menos o código do país e alguns números
+    if (!valores.Telefone || valores.Telefone.length < 10) {
       novosErros.Telefone = dict.form.err_tel;
     }
 
@@ -94,6 +68,7 @@ export default function ContactForm({
     );
 
     try {
+      // Usando o enviar.php que vamos configurar com o Resend
       const response = await fetch("/enviar.php", {
         method: "POST",
         body: formData,
@@ -118,7 +93,7 @@ export default function ContactForm({
   };
 
   const getInputClass = (campo: string) =>
-    `bg-transparent border-b py-2 text-brand-white focus:outline-none transition-all font-light ${
+    `bg-transparent border-b py-2 text-brand-white focus:outline-none transition-all font-light w-full ${
       erros[campo]
         ? "border-red-500 placeholder-red-400/50"
         : "border-white/20 focus:border-brand-white"
@@ -184,14 +159,27 @@ export default function ContactForm({
           )}
         </div>
 
+        {/* COMPONENTE INTERNACIONAL DE TELEFONE */}
         <div className="flex flex-col relative">
-          <input
-            type="tel"
-            name="Telefone"
+          <PhoneInput
+            defaultCountry={lang === "pt" ? "br" : "us"}
             value={valores.Telefone}
-            onChange={handlePhoneChange}
+            onChange={(phone) => setValores({ ...valores, Telefone: phone })}
+            className="international-phone-container"
+            inputClassName={getInputClass("Telefone")}
             placeholder={dict.form.telefone}
-            className={getInputClass("Telefone")}
+            style={
+              {
+                // Removendo os estilos padrão da biblioteca para casar com o seu design
+                "--react-international-phone-border-color": "transparent",
+                "--react-international-phone-bg-color": "transparent",
+                "--react-international-phone-text-color": "#FFFFFF",
+                "--react-international-phone-font-size": "16px",
+                "--react-international-phone-border-radius": "0px",
+                "--react-international-phone-dropdown-item-bg-color": "#1A1A1A",
+                "--react-international-phone-dropdown-bg-color": "#1A1A1A",
+              } as React.CSSProperties
+            }
           />
           {erros.Telefone && (
             <span className="text-red-500 text-[10px] absolute -bottom-4">
@@ -253,6 +241,105 @@ export default function ContactForm({
           {status === "idle" && dict.form.btn_enviar}
         </button>
       </form>
+
+      {/* CSS específico para forçar o estilo dark minimalista na biblioteca de telefone */}
+      <style jsx global>{`
+        /* 1. Alinha a bandeira e o input em uma única linha com a borda embaixo */
+        .international-phone-container {
+          display: flex;
+          width: 100%;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          transition: border-color 0.3s ease;
+        }
+
+        /* Hover/Focus na linha inteira */
+        .international-phone-container:focus-within {
+          border-bottom-color: #ffffff;
+        }
+
+        /* 2. Remove fundos e bordas individuais dos componentes internos */
+        .international-phone-container
+          .react-international-phone-country-selector-button,
+        .international-phone-container .react-international-phone-input {
+          background-color: transparent !important;
+          border: none !important;
+        }
+
+        /* 3. Ajusta o campo onde os números são digitados */
+        .international-phone-container .react-international-phone-input input {
+          background-color: transparent !important;
+          color: white !important;
+          width: 100% !important;
+          padding: 8px 0 8px 8px !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        /* 4. CONSERTA O MENU SUSPENSO (Dropdown) */
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown {
+          background-color: #1a1a1a !important; /* Fundo escuro SÓLIDO para não misturar com o formulário */
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          border-radius: 4px;
+          z-index: 50 !important; /* Força a lista a ficar por cima de tudo (textarea, labels) */
+          margin-top: 4px !important;
+        }
+
+        /* Cores do texto dentro da lista de países */
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown__list-item-country-name {
+          color: white !important;
+        }
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown__list-item-dial-code {
+          color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        /* Efeito de passar o mouse nos países */
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown__list-item:hover {
+          background-color: #333333 !important;
+        }
+
+        /* Ajusta o fundo do país que está atualmente selecionado ou focado pelo teclado */
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown__list-item--focused,
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown__list-item--selected,
+        .international-phone-container
+          .react-international-phone-country-selector-dropdown__list-item[aria-selected="true"] {
+          background-color: #2a2a2a !important;
+        }
+
+        /* 5. CORRIGE O AUTOFILL DO NAVEGADOR (Fundo Azul) */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 30px #1a1a1a inset !important;
+          -webkit-text-fill-color: white !important;
+          transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /* Aplica a correção também para o input dentro do componente de telefone */
+        .international-phone-container
+          .react-international-phone-input
+          input:-webkit-autofill,
+        .international-phone-container
+          .react-international-phone-input
+          input:-webkit-autofill:hover,
+        .international-phone-container
+          .react-international-phone-input
+          input:-webkit-autofill:focus,
+        .international-phone-container
+          .react-international-phone-input
+          input:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+          -webkit-text-fill-color: white !important;
+          transition: background-color 5000s ease-in-out 0s;
+        }
+      `}</style>
     </div>
   );
 }
